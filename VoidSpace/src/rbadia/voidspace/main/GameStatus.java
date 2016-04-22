@@ -106,6 +106,7 @@ public class GameStatus {
 	}
 	
 	public synchronized boolean isLevelOver(){//TODO
+		//TODO other conditions
 		if((this.getAsteroidsDestroyed() > 1) && (this.getAsteroidsDestroyed() % 5 == 0)){
 			levelOver = true;
 		}
