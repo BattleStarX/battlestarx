@@ -1,0 +1,96 @@
+Level design proposal
+
+The game will consist of n distinct levels.
+
+Asteroids Levels
+
+	Level 1:
+	
+		Targets per launch:
+			3 asteroids
+			
+		Targets to destroy:
+			5 asteroids
+	
+	Level 2:
+	
+		Targets per launch:
+			3 asteroids
+			
+		Targets to destroy:
+			10 asteroids
+				
+	Level 3:  
+	
+		Targets per launch:
+			3 asteroids
+			
+		Targets to destroy: 
+			15 asteroids
+	
+Transition Level I (allow player to gain ships)
+			
+	Level 4:  
+	
+		Unique launch:
+			1 ship
+	
+		Targets per launch:
+			4 asteroids
+			
+		Targets to destroy: 
+			25 asteroids
+			
+		
+Enemy Ships Levels
+		
+	Level 5: Introduce enemy ships
+	
+		Targets per launch:
+			3 asteroids
+			1 enemy ship
+			
+		Targets to destroy:
+			5 asteroids
+			2 enemy ships
+		
+	Level 6:
+	
+		Targets per launch:
+			3 asteroids
+			2 enemy ships
+			
+		Targets to destroy:
+			10 asteroids
+			5 enemy ships
+			
+	Level 7:
+	
+		Targets per launch:
+			3 asteroids
+			2 enemy ships
+			
+		Targets to destroy:
+			15 asteroids
+			10 enemy ships 
+		
+Transition Level II 		
+			
+	Level 8:
+	
+		Unique launch:
+			1 ship
+	
+		Targets per launch:
+			3 asteroids
+			2 enemy ships
+			
+		Targets to destroy:
+			15 asteroids
+			10 enemy ships 
+
+Boss Level
+
+	Level 9:
+	
+		Boss

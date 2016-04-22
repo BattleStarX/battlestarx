@@ -18,7 +18,7 @@ public class GameStatus {
 	private int currentLevel = 1;//TODO
 	
 	// target variables
-	private long asteroidToDestroyValue = 5;
+	private long asteroidToDestroyValue = 5;//TODO
 	
 	public GameStatus(){
 		
@@ -137,11 +137,11 @@ public class GameStatus {
 		this.asteroidToDestroyValue = asteroidValue;
 	}
 
-	public long getAsteroidsValue() {
+	public long getAsteroidsValue() {//TODO
 		return asteroidToDestroyValue;
 	}
 	
-	public void setTargetVariables() {//TODO
+	public void setLevelVariables() {//TODO
 		switch(this.currentLevel){
 			case 1:
 				setAsteroidValue(5);

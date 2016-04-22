@@ -133,7 +133,7 @@ public class GameLogic {
 		// reset value of asteroids destroyed
 		status.setAsteroidsDestroyed(0);
 		// set new target variables for next level
-		status.setTargetVariables();
+		status.setLevelVariables();
 	}
 	
 	/**
