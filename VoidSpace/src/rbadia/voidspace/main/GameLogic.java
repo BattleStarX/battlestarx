@@ -1,3 +1,4 @@
+//
 package rbadia.voidspace.main;
 
 import java.awt.event.ActionEvent;
@@ -26,7 +27,7 @@ public class GameLogic {
 	private List<Bullet> bullets;
 	
 	/**
-	 * Craete a new game logic handler
+	 * Create a new game logic handler
 	 * @param gameScreen the game screen
 	 */
 	public GameLogic(GameScreen gameScreen){
@@ -70,6 +71,7 @@ public class GameLogic {
 		status.setGameOver(false);
 		status.setAsteroidsDestroyed(0);
 		status.setNewAsteroid(false);
+	    status.setCurrentLevel(1);//TODO
 				
 		// init the ship and the asteroid
         newShip(gameScreen);
@@ -99,6 +101,14 @@ public class GameLogic {
 				gameOver();
 			}
 		}
+		
+		//TODO
+		// check level over conditions
+		if((status.getAsteroidsDestroyed() > 1) && (status.getAsteroidsDestroyed() % 5 == 0)){ 
+			if(!status.isLevelOver()){
+				levelOver();
+			}
+		}
 	}
 	
 	/**
@@ -117,6 +127,12 @@ public class GameLogic {
 		});
 		timer.setRepeats(false);
 		timer.start();
+	}
+	
+	public void levelOver(){
+		status.setLevelOver(true);
+		status.updateCurrentLevel();
+		status.setAsteroidsDestroyed(0);
 	}
 	
 	/**

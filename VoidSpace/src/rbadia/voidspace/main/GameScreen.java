@@ -39,6 +39,7 @@ public class GameScreen extends JPanel {
 	
 	private JLabel shipsValueLabel;
 	private JLabel destroyedValueLabel;
+	private JLabel levelValueLabel;//TODO
 
 	private Random rand;
 	
@@ -75,7 +76,7 @@ public class GameScreen extends JPanel {
 	 */
 	private void initialize() {
 		// set panel properties
-        this.setSize(new Dimension(500, 400));
+        this.setSize(new Dimension(500, 400));//TODO
         this.setPreferredSize(new Dimension(500, 400));
         this.setBackground(Color.BLACK);
 	}
@@ -109,7 +110,7 @@ public class GameScreen extends JPanel {
 		g2d.fillRect(0, 0, getSize().width, getSize().height);
 
 		// draw 50 random stars
-		drawStars(50);
+		drawStars(0); //TODO
 		
 		// if the game is starting, draw "Get Ready" message
 		if(status.isGameStarting()){
@@ -260,6 +261,9 @@ public class GameScreen extends JPanel {
 		
 		// update ships left label
 		shipsValueLabel.setText(Integer.toString(status.getShipsLeft()));
+		
+		// update level label
+		levelValueLabel.setText(Integer.toString(status.getCurrentLevel()));//TODO
 	}
 
 	/**
@@ -376,6 +380,7 @@ public class GameScreen extends JPanel {
 		shipsValueLabel.setForeground(Color.BLACK);
 		shipsValueLabel.setText(Integer.toString(status.getShipsLeft()));
 		destroyedValueLabel.setText(Long.toString(status.getAsteroidsDestroyed()));
+		levelValueLabel.setText(Integer.toString(status.getCurrentLevel()));//TODO
 	}
 
 	/**
@@ -410,5 +415,9 @@ public class GameScreen extends JPanel {
 	 */
 	public void setShipsValueLabel(JLabel shipsValueLabel) {
 		this.shipsValueLabel = shipsValueLabel;
+	}
+	
+	public void setLevelValueLabel(JLabel levelValueLabel) {//TODO
+		this.levelValueLabel = levelValueLabel;
 	}
 }

@@ -12,8 +12,10 @@ public class GameStatus {
 	// status variables
 	private boolean newShip;
 	private boolean newAsteroid;
+	private boolean levelOver = false;//TODO
 	private long asteroidsDestroyed = 0;
 	private int shipsLeft;
+	private int currentLevel = 1;//TODO
 	
 	public GameStatus(){
 		
@@ -21,7 +23,7 @@ public class GameStatus {
 	
 	/**
 	 * Indicates if the game has already started or not.
-	 * @return if the game has already started or not
+	 * @return if the game has already started or not 1
 	 */
 	public synchronized boolean isGameStarted() {
 		return gameStarted;
@@ -102,5 +104,25 @@ public class GameStatus {
 	public synchronized void setShipsLeft(int shipsLeft) {
 		this.shipsLeft = shipsLeft;
 	}
-
+	
+	public synchronized boolean isLevelOver(){//TODO
+		return levelOver;
+	}
+	
+	public synchronized void setLevelOver(boolean levelOver){//TODO
+		this.levelOver = levelOver;
+	}
+	
+	public synchronized int getCurrentLevel() {//TODO
+		return currentLevel;
+	}
+	
+	public synchronized void setCurrentLevel(int level){//TODO
+		this.currentLevel = level;
+	}
+	
+	public synchronized void updateCurrentLevel(){//TODO
+		this.currentLevel++;
+		this.setLevelOver(false);
+	}
 }
