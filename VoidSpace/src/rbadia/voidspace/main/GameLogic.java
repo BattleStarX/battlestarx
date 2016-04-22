@@ -72,6 +72,7 @@ public class GameLogic {
 		status.setAsteroidsDestroyed(0);
 		status.setNewAsteroid(false);
 	    status.setCurrentLevel(1);//TODO
+	    status.setAsteroidValue(5);//TODO
 				
 		// init the ship and the asteroid
         newShip(gameScreen);
@@ -127,9 +128,12 @@ public class GameLogic {
 	}
 	
 	public void levelOver(){
+		// update current level
 		status.updateCurrentLevel();
-		//reset values
+		// reset value of asteroids destroyed
 		status.setAsteroidsDestroyed(0);
+		// set new target variables for next level
+		status.setTargetVariables();
 	}
 	
 	/**

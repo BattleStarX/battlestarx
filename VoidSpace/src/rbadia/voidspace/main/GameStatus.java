@@ -17,6 +17,9 @@ public class GameStatus {
 	private int shipsLeft;
 	private int currentLevel = 1;//TODO
 	
+	// target variables
+	private long asteroidToDestroyValue = 5;
+	
 	public GameStatus(){
 		
 	}
@@ -107,7 +110,7 @@ public class GameStatus {
 	
 	public synchronized boolean isLevelOver(){//TODO
 		//TODO other conditions
-		if((this.getAsteroidsDestroyed() > 1) && (this.getAsteroidsDestroyed() % 5 == 0)){
+		if((this.getAsteroidsDestroyed() > 1) && (this.getAsteroidsDestroyed() == this.getAsteroidsValue())){
 			levelOver = true;
 		}
 		return levelOver;
@@ -126,7 +129,32 @@ public class GameStatus {
 	}
 	
 	public synchronized void updateCurrentLevel(){//TODO
-		this.currentLevel++;
+		setCurrentLevel(this.getCurrentLevel() + 1);
 		this.setLevelOver(false);
+	}
+
+	public void setAsteroidValue(long asteroidValue) {//TODO
+		this.asteroidToDestroyValue = asteroidValue;
+	}
+
+	public long getAsteroidsValue() {
+		return asteroidToDestroyValue;
+	}
+	
+	public void setTargetVariables() {//TODO
+		switch(this.currentLevel){
+			case 1:
+				setAsteroidValue(5);
+				break;
+			case 2:
+				setAsteroidValue(6);
+				break;
+			case 3:
+				setAsteroidValue(7);
+				break;
+			default:
+				setAsteroidValue(5);
+				break;
+		}
 	}
 }

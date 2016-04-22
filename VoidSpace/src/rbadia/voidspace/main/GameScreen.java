@@ -40,6 +40,8 @@ public class GameScreen extends JPanel {
 	private JLabel shipsValueLabel;
 	private JLabel destroyedValueLabel;
 	private JLabel levelValueLabel;//TODO
+	
+	private long asteroidsToDestroyValue = 5;//TODO
 
 	private Random rand;
 	
@@ -256,8 +258,11 @@ public class GameScreen extends JPanel {
 			soundMan.playAsteroidExplosionSound();
 		}
 		
+		// update asteroids to destroy value
+		asteroidsToDestroyValue = status.getAsteroidsValue();
+		
 		// update asteroids destroyed label
-		destroyedValueLabel.setText(Long.toString(status.getAsteroidsDestroyed()));
+		destroyedValueLabel.setText(Long.toString(status.getAsteroidsDestroyed()) + " / " + asteroidsToDestroyValue);//TODO
 		
 		// update ships left label
 		shipsValueLabel.setText(Integer.toString(status.getShipsLeft()));
@@ -379,7 +384,7 @@ public class GameScreen extends JPanel {
         // set labels' text
 		shipsValueLabel.setForeground(Color.BLACK);
 		shipsValueLabel.setText(Integer.toString(status.getShipsLeft()));
-		destroyedValueLabel.setText(Long.toString(status.getAsteroidsDestroyed()));
+		destroyedValueLabel.setText(Long.toString(status.getAsteroidsDestroyed()) + " / " + asteroidsToDestroyValue);//TODO
 		levelValueLabel.setText(Integer.toString(status.getCurrentLevel()));//TODO
 	}
 
@@ -417,7 +422,11 @@ public class GameScreen extends JPanel {
 		this.shipsValueLabel = shipsValueLabel;
 	}
 	
-	public void setLevelValueLabel(JLabel levelValueLabel) {//TODO
+	public void setLevelValueLabel(JLabel levelValueLabel) {//TODO comments
 		this.levelValueLabel = levelValueLabel;
+	}
+	
+	public void setAsteroidValue(long asteroidToDestroyValue){//TODO remove
+		this.asteroidsToDestroyValue = asteroidToDestroyValue;
 	}
 }

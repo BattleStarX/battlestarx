@@ -28,7 +28,7 @@ public class MainFrame extends JFrame {
 	
 	private JLabel levelLabel;
 	private JLabel levelValueLabel;
-	
+		
 	/**
 	 * This is the default constructor
 	 */
@@ -62,7 +62,7 @@ public class MainFrame extends JFrame {
 	 */
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
-			
+		
 			GridBagConstraints gridBagConstraints6 = new GridBagConstraints();
 			gridBagConstraints6.insets = new Insets(0, 0, 0, 0);
 			gridBagConstraints6.gridy = 2;
@@ -115,7 +115,7 @@ public class MainFrame extends JFrame {
 			shipsLabel = new JLabel("Ships Left: ");
 			shipsValueLabel = new JLabel("3");
 			destroyedLabel = new JLabel("Asteroids Destroyed: ");
-			destroyedValueLabel = new JLabel("0");
+			destroyedValueLabel = new JLabel("0 / 5");
 			levelLabel = new JLabel("Level: ");
 			levelValueLabel = new JLabel("1");
 			
