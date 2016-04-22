@@ -104,11 +104,8 @@ public class GameLogic {
 		
 		//TODO
 		// check level over conditions
-		if((status.getAsteroidsDestroyed() > 1) && (status.getAsteroidsDestroyed() % 5 == 0)){ 
-			if(!status.isLevelOver()){
-				levelOver();
-			}
-		}
+		if(status.isLevelOver())
+			levelOver();
 	}
 	
 	/**
@@ -130,8 +127,8 @@ public class GameLogic {
 	}
 	
 	public void levelOver(){
-		status.setLevelOver(true);
 		status.updateCurrentLevel();
+		//reset values
 		status.setAsteroidsDestroyed(0);
 	}
 	
