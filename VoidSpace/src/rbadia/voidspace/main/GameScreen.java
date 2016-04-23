@@ -118,7 +118,7 @@ public class GameScreen extends JPanel {
 		}
 
 		// erase screen
-		g2d.setPaint(new Color(0x330066)); //DarkBlue Color by Albert
+		g2d.setPaint(new Color(0x1a001a)); //DarkBlue Color by Albert
 		g2d.fillRect(0, 0, getSize().width, getSize().height);
 
 		// draw 50 random stars
@@ -447,7 +447,7 @@ public class GameScreen extends JPanel {
 		int ascent = fm.getAscent();
 		int strX = (this.getWidth() - strWidth)/2;
 		int strY = (this.getHeight() + ascent)/2 - ascent;
-		g2d.setPaint(Color.YELLOW);
+		g2d.setPaint(Color.GREEN);
 		g2d.drawString(gameTitleStr, strX, strY);
 
 		g2d.setFont(originalFont);

@@ -12,7 +12,7 @@ import rbadia.voidspace.main.GameScreen;
 public class EnemyShip extends Rectangle {
 	private static final long serialVersionUID = 1L;
 
-	public static final int DEFAULT_SPEED = 8;
+	public static final int DEFAULT_SPEED = 2;
 	//private static final int Y_OFFSET = 10; // initial y distance of the ship from the bottom of the screen 
 
 	private int enemyShipWidth = 40;
