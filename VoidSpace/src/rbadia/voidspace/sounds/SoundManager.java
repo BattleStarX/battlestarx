@@ -11,44 +11,107 @@ import rbadia.voidspace.main.GameScreen;
 public class SoundManager {
 	private static final boolean SOUND_ON = true;
 
-    private AudioClip shipExplosionSound = Applet.newAudioClip(GameScreen.class.getResource(
-    "/rbadia/voidspace/sounds/shipExplosion.wav"));
-    private AudioClip bulletSound = Applet.newAudioClip(GameScreen.class.getResource(
-    "/rbadia/voidspace/sounds/laser.wav"));
-    
-    /**
-     * Plays sound for bullets fired by the ship.
-     */
-    public void playBulletSound(){
-    	if(SOUND_ON){
-    		new Thread(new Runnable(){
-    			public void run() {
-    				bulletSound.play();
-    			}
-    		}).start();
-    	}
-    }
-    
-    /**
-     * Plays sound for ship explosions.
-     */
-    public void playShipExplosionSound(){
-    	if(SOUND_ON){
-    		new Thread(new Runnable(){
-    			public void run() {
-    				shipExplosionSound.play();
-    			}
-    		}).start();
-    	}
-    }
-    
-    /**
-     * Plays sound for asteroid explosions.
-     */
-    public void playAsteroidExplosionSound(){
+	private AudioClip shipExplosionSound = Applet.newAudioClip(GameScreen.class.getResource(
+			"/rbadia/voidspace/sounds/shipExplosion.wav"));
+	private AudioClip bulletSound = Applet.newAudioClip(GameScreen.class.getResource(
+			"/rbadia/voidspace/sounds/laser.wav"));
+	private AudioClip introMusic = Applet.newAudioClip(GameScreen.class.getResource(
+			"/rbadia/voidspace/sounds/LoLArcade.wav"));
+	private AudioClip duringMusic = Applet.newAudioClip(GameScreen.class.getResource(
+			"/rbadia/voidspace/sounds/duringPlayX.wav"));
+	private AudioClip gameOver = Applet.newAudioClip(GameScreen.class.getResource(
+			"/rbadia/voidspace/sounds/gameOver.wav"));
+
+	/**
+	 * Plays sound for bullets fired by the ship.
+	 */
+	public void playBulletSound(){
+		if(SOUND_ON){
+			new Thread(new Runnable(){
+				public void run() {
+					bulletSound.play();
+				}
+			}).start();
+		}
+	}
+
+	/**
+	 * Plays sound for ship explosions.
+	 */
+	public void playShipExplosionSound(){
+		if(SOUND_ON){
+			new Thread(new Runnable(){
+				public void run() {
+					shipExplosionSound.play();
+				}
+			}).start();
+		}
+	}
+
+	/**
+	 * Plays sound for asteroid explosions.
+	 */
+	public void playAsteroidExplosionSound(){
 		// play sound for asteroid explosions
-    	if(SOUND_ON){
-    		
-    	}
-    }
+		if(SOUND_ON){
+
+		}
+	}
+
+
+	public void playIntroMusic(){
+		if(SOUND_ON){
+			new Thread(new Runnable(){
+				public void run() {
+					introMusic.play();
+				}
+			}).start();
+
+		}
+	}
+	public void stopIntroMusic(){
+		if(SOUND_ON){
+			new Thread(new Runnable(){
+				public void run() {
+					introMusic.stop();
+				}
+			}).start();
+
+		}
+	}
+
+
+	public void playDuringMusic(){
+		if(SOUND_ON){
+			new Thread(new Runnable(){
+				public void run() {
+					duringMusic.play();
+				}
+			}).start();
+
+		}
+	}
+	public void stopDuringMusic(){
+		if(SOUND_ON){
+			new Thread(new Runnable(){
+				public void run() {
+					duringMusic.stop();
+				}
+			}).start();
+
+		}
+	}
+
+	public void playGameOverSound(){
+		if(SOUND_ON){
+			new Thread(new Runnable(){
+				public void run() {
+					gameOver.play();
+				}
+			}).start();
+
+		}
+	}
+
+
 }

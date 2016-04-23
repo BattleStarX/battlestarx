@@ -45,6 +45,8 @@ public class GameLogic {
 
 		// init some variables
 		bullets = new ArrayList<Bullet>();
+		//-----------------------------------------------
+		soundMan.playIntroMusic();
 	}
 
 	/**
@@ -68,7 +70,8 @@ public class GameLogic {
 	 */
 	public void newGame(){
 		status.setGameStarting(true);
-
+		soundMan.stopIntroMusic();
+		soundMan.playDuringMusic();
 		// init game variables
 		bullets = new ArrayList<Bullet>();
 
@@ -118,12 +121,16 @@ public class GameLogic {
 	public void gameOver(){
 		status.setGameStarted(false);
 		status.setGameOver(true);
+		soundMan.stopDuringMusic();
+		soundMan.playGameOverSound();
 		gameScreen.doGameOver();
 
 		// delay to display "Game Over" message for 3 seconds
 		Timer timer = new Timer(3000, new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				status.setGameOver(false);
+				soundMan.playIntroMusic();
+
 			}
 		});
 		timer.setRepeats(false);
