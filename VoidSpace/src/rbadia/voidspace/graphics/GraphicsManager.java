@@ -12,6 +12,8 @@ import rbadia.voidspace.model.Asteroid;
 import rbadia.voidspace.model.Bullet;
 import rbadia.voidspace.model.Ship;
 
+import rbadia.voidspace.model.EnemyShip;
+
 /**
  * Manages and draws game graphics and images.
  */
@@ -21,18 +23,23 @@ public class GraphicsManager {
 	private BufferedImage asteroidImg;
 	private BufferedImage asteroidExplosionImg;
 	private BufferedImage shipExplosionImg;
-	
+
+	private BufferedImage enemyShipImg;
+
 	/**
 	 * Creates a new graphics manager and loads the game images.
 	 */
 	public GraphicsManager(){
-    	// load images
+		// load images
 		try {
 			this.shipImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/ship.png"));
 			this.asteroidImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/asteroid.png"));
 			this.asteroidExplosionImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/asteroidExplosion.png"));
 			this.shipExplosionImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/shipExplosion.png"));
 			this.bulletImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/bullet.png"));
+
+			this.enemyShipImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/enemyShip.png"));
+
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "The graphic files are either corrupt or missing.",
 					"VoidSpace - Fatal Error", JOptionPane.ERROR_MESSAGE);
@@ -71,6 +78,22 @@ public class GraphicsManager {
 		g2d.drawImage(asteroidImg, asteroid.x, asteroid.y, observer);
 	}
 
+
+	//----------------------------------------------------------------------------------------
+	/**
+	 * Draws a enemyShip image to the specified graphics canvas.
+	 * @param enemyShip the enemyShip to draw
+	 * @param g2d the graphics canvas
+	 * @param observer object to be notified
+	 */
+	public void drawEnemyShip(EnemyShip enemyShip, Graphics2D g2d, ImageObserver observer) {
+		g2d.drawImage(enemyShipImg, enemyShip.x, enemyShip.y, observer);
+	}
+	//----------------------------------------------------------------------------------------
+
+
+
+
 	/**
 	 * Draws a ship explosion image to the specified graphics canvas.
 	 * @param shipExplosion the bounding rectangle of the explosion
@@ -90,5 +113,5 @@ public class GraphicsManager {
 	public void drawAsteroidExplosion(Rectangle asteroidExplosion, Graphics2D g2d, ImageObserver observer) {
 		g2d.drawImage(asteroidExplosionImg, asteroidExplosion.x, asteroidExplosion.y, observer);
 	}
-	
+
 }

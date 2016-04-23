@@ -12,6 +12,8 @@ import rbadia.voidspace.model.Bullet;
 import rbadia.voidspace.model.Ship;
 import rbadia.voidspace.sounds.SoundManager;
 
+import rbadia.voidspace.model.EnemyShip;;
+
 
 /**
  * Handles general game logic and status.
@@ -20,23 +22,27 @@ public class GameLogic {
 	private GameScreen gameScreen;
 	private GameStatus status;
 	private SoundManager soundMan;
-	
+
 	private Ship ship;
 	private Asteroid asteroid;
 	private List<Bullet> bullets;
-	
+
+
+	private EnemyShip enemyShip;
+
+
 	/**
 	 * Craete a new game logic handler
 	 * @param gameScreen the game screen
 	 */
 	public GameLogic(GameScreen gameScreen){
 		this.gameScreen = gameScreen;
-		
+
 		// initialize game status information
 		status = new GameStatus();
 		// initialize the sound manager
 		soundMan = new SoundManager();
-		
+
 		// init some variables
 		bullets = new ArrayList<Bullet>();
 	}
@@ -62,7 +68,7 @@ public class GameLogic {
 	 */
 	public void newGame(){
 		status.setGameStarting(true);
-		
+
 		// init game variables
 		bullets = new ArrayList<Bullet>();
 
@@ -70,15 +76,20 @@ public class GameLogic {
 		status.setGameOver(false);
 		status.setAsteroidsDestroyed(0);
 		status.setNewAsteroid(false);
-				
+
+		status.setEnemyShipsDestroyed(0);
+		status.setNewEnemyShip(false);
+
 		// init the ship and the asteroid
-        newShip(gameScreen);
-        newAsteroid(gameScreen);
-        
-        // prepare game screen
-        gameScreen.doNewGame();
-        
-        // delay to display "Get Ready" message for 1.5 seconds
+		newShip(gameScreen);
+		newAsteroid(gameScreen);
+
+		newEnemyShip(gameScreen);
+
+		// prepare game screen
+		gameScreen.doNewGame();
+
+		// delay to display "Get Ready" message for 1.5 seconds
 		Timer timer = new Timer(1500, new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				status.setGameStarting(false);
@@ -88,7 +99,7 @@ public class GameLogic {
 		timer.setRepeats(false);
 		timer.start();
 	}
-	
+
 	/**
 	 * Check game or level ending conditions.
 	 */
@@ -100,7 +111,7 @@ public class GameLogic {
 			}
 		}
 	}
-	
+
 	/**
 	 * Actions to take when the game is over.
 	 */
@@ -108,8 +119,8 @@ public class GameLogic {
 		status.setGameStarted(false);
 		status.setGameOver(true);
 		gameScreen.doGameOver();
-		
-        // delay to display "Game Over" message for 3 seconds
+
+		// delay to display "Game Over" message for 3 seconds
 		Timer timer = new Timer(3000, new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				status.setGameOver(false);
@@ -118,7 +129,7 @@ public class GameLogic {
 		timer.setRepeats(false);
 		timer.start();
 	}
-	
+
 	/**
 	 * Fire a bullet from ship.
 	 */
@@ -127,7 +138,7 @@ public class GameLogic {
 		bullets.add(bullet);
 		soundMan.playBulletSound();
 	}
-	
+
 	/**
 	 * Move a bullet once fired.
 	 * @param bullet the bullet to move
@@ -142,7 +153,7 @@ public class GameLogic {
 			return true;
 		}
 	}
-	
+
 	/**
 	 * Create a new ship (and replace current one).
 	 */
@@ -150,7 +161,7 @@ public class GameLogic {
 		this.ship = new Ship(screen);
 		return ship;
 	}
-	
+
 	/**
 	 * Create a new asteroid.
 	 */
@@ -158,7 +169,19 @@ public class GameLogic {
 		this.asteroid = new Asteroid(screen);
 		return asteroid;
 	}
-	
+
+
+	//-------------------------------------------------------------------------------------------------
+	/**
+	 * Create a new enemy ship.
+	 */
+	public EnemyShip newEnemyShip(GameScreen screen){
+		this.enemyShip = new EnemyShip(screen);
+		return enemyShip;
+	}
+
+
+
 	/**
 	 * Returns the ship.
 	 * @return the ship
@@ -174,6 +197,16 @@ public class GameLogic {
 	public Asteroid getAsteroid() {
 		return asteroid;
 	}
+
+
+	/**
+	 * Returns the enemy ship.
+	 * @return the enemy ship
+	 */
+	public EnemyShip getEnemyShip () {
+		return enemyShip;
+	}
+
 
 	/**
 	 * Returns the list of bullets.
