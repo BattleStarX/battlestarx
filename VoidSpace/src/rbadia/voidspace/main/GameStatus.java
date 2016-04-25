@@ -8,22 +8,45 @@ public class GameStatus {
 	private boolean gameStarted = false;
 	private boolean gameStarting = false;
 	private boolean gameOver = false;
-	
+
 	// status variables
 	private boolean newShip;
 	private boolean newAsteroid;
-	
+
 	private boolean newEnemyShip;
-	
+
 	private long asteroidsDestroyed = 0;
 	private long enemyShipsDestroyed = 0;
-	
+
 	private int shipsLeft;
-	
+
+	private int scorePoints = 0;
+
 	public GameStatus(){
-		
+
 	}
-	
+
+
+	/**
+	 * Returns the score points obtained.
+	 * @return the score points
+	 */
+	public synchronized int getScorePoints()
+	{
+		return scorePoints;
+	}
+
+	/**
+	 * Set score points
+	 * @param scorePoints
+	 */
+	public synchronized void setScorePoints(int scorePoints)
+	{
+		this.scorePoints = scorePoints;
+	}
+
+
+
 	/**
 	 * Indicates if the game has already started or not.
 	 * @return if the game has already started or not
@@ -31,11 +54,11 @@ public class GameStatus {
 	public synchronized boolean isGameStarted() {
 		return gameStarted;
 	}
-	
+
 	public synchronized void setGameStarted(boolean gameStarted) {
 		this.gameStarted = gameStarted;
 	}
-	
+
 	/**
 	 * Indicates if the game is starting ("Get Ready" message is displaying) or not.
 	 * @return if the game is starting or not.
@@ -43,11 +66,11 @@ public class GameStatus {
 	public synchronized boolean isGameStarting() {
 		return gameStarting;
 	}
-	
+
 	public synchronized void setGameStarting(boolean gameStarting) {
 		this.gameStarting = gameStarting;
 	}
-	
+
 	/**
 	 * Indicates if the game has ended and the "Game Over" message is displaying.
 	 * @return if the game has ended and the "Game Over" message is displaying.
@@ -55,11 +78,11 @@ public class GameStatus {
 	public synchronized boolean isGameOver() {
 		return gameOver;
 	}
-	
+
 	public synchronized void setGameOver(boolean gameOver) {
 		this.gameOver = gameOver;
 	}
-	
+
 	/**
 	 * Indicates if a new ship should be created/drawn.
 	 * @return if a new ship should be created/drawn
@@ -96,7 +119,7 @@ public class GameStatus {
 		this.asteroidsDestroyed = asteroidsDestroyed;
 	}
 
-	
+
 	//---------------------------------------------------------------------------------------
 	/**
 	 * Indicates if a new enemy ship should be created/drawn.
@@ -123,8 +146,8 @@ public class GameStatus {
 	}
 
 	//---------------------------------------------------------------------------------------
-	
-	
+
+
 	/**
 	 * Returns the number ships/lives left.
 	 * @return the number ships left

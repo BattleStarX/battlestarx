@@ -49,6 +49,9 @@ public class GameScreen extends JPanel {
 
 	private JLabel shipsValueLabel;
 	private JLabel destroyedValueLabel;
+	
+	private JLabel scorePointsValueLabel;
+	private JLabel destroyedEnemyValueLabel;
 
 	private Random rand;
 
@@ -232,6 +235,7 @@ public class GameScreen extends JPanel {
 			if(asteroid.intersects(bullet)){
 				// increase asteroids destroyed count
 				status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 1);
+				status.setScorePoints(status.getScorePoints() + 500);
 
 				// "remove" asteroid
 				asteroidExplosion = new Rectangle(
@@ -260,6 +264,7 @@ public class GameScreen extends JPanel {
 			if(enemyShip.intersects(bullet)){
 				// increase enemyShips destroyed count
 				status.setEnemyShipsDestroyed(status.getEnemyShipsDestroyed() + 1);
+				status.setScorePoints(status.getScorePoints() + 1000);
 
 				// "remove" enemyShip
 				shipExplosion = new Rectangle(
@@ -372,6 +377,12 @@ public class GameScreen extends JPanel {
 
 		// update ships left label
 		shipsValueLabel.setText(Integer.toString(status.getShipsLeft()));
+		
+		//update score points label
+		scorePointsValueLabel.setText(Long.toString(status.getScorePoints()));
+		
+		//update enemy ships destroyed label
+		destroyedEnemyValueLabel.setText(Long.toString(status.getEnemyShipsDestroyed()));
 	}
 
 	/**
@@ -488,6 +499,9 @@ public class GameScreen extends JPanel {
 		shipsValueLabel.setForeground(Color.BLACK);
 		shipsValueLabel.setText(Integer.toString(status.getShipsLeft()));
 		destroyedValueLabel.setText(Long.toString(status.getAsteroidsDestroyed()));
+		
+		scorePointsValueLabel.setForeground(Color.BLACK);
+		scorePointsValueLabel.setText(Long.toString(status.getScorePoints()));
 	}
 
 	/**
@@ -523,4 +537,24 @@ public class GameScreen extends JPanel {
 	public void setShipsValueLabel(JLabel shipsValueLabel) {
 		this.shipsValueLabel = shipsValueLabel;
 	}
+	
+	
+	/**
+	 * Sets the label that displays the total score.
+	 * @param scorePointsValueLabel the label to set
+	 */
+	public void setScorePointsValueLabel(JLabel scorePointsValueLabel) {
+		this.scorePointsValueLabel = scorePointsValueLabel;
+	}
+	
+	
+	/**
+	 * Sets the label that displays the value of enemy ships destroyed.
+	 * @param destroyedEnemyShipsValueLabel the label to set
+	 */
+	public void setDestroyedEnemyShipsValueLabel(JLabel destroyedEnemyShipsValueLabel) {
+		this.destroyedEnemyValueLabel = destroyedEnemyShipsValueLabel;
+	}
+	
+	
 }

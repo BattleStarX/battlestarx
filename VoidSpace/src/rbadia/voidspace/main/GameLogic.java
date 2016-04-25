@@ -82,6 +82,9 @@ public class GameLogic {
 
 		status.setEnemyShipsDestroyed(0);
 		status.setNewEnemyShip(false);
+		
+		status.setScorePoints(0);
+	
 
 		// init the ship and the asteroid
 		newShip(gameScreen);
