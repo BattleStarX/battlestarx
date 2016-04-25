@@ -11,8 +11,7 @@ import rbadia.voidspace.model.Asteroid;
 import rbadia.voidspace.model.Bullet;
 import rbadia.voidspace.model.Ship;
 import rbadia.voidspace.sounds.SoundManager;
-
-import rbadia.voidspace.model.EnemyShip;;
+import rbadia.voidspace.model.EnemyShip;//TODO
 
 
 /**
@@ -26,13 +25,10 @@ public class GameLogic {
 	private Ship ship;
 	private Asteroid asteroid;
 	private List<Bullet> bullets;
-
-
 	private EnemyShip enemyShip;
 
-
 	/**
-	 * Craete a new game logic handler
+	 * Create a new game logic handler
 	 * @param gameScreen the game screen
 	 */
 	public GameLogic(GameScreen gameScreen){
@@ -45,8 +41,7 @@ public class GameLogic {
 
 		// init some variables
 		bullets = new ArrayList<Bullet>();
-		//-----------------------------------------------
-		soundMan.playIntroMusic();
+		soundMan.playIntroMusic();//TODO
 	}
 
 	/**
@@ -79,18 +74,16 @@ public class GameLogic {
 		status.setGameOver(false);
 		status.setAsteroidsDestroyed(0);
 		status.setNewAsteroid(false);
-
 		status.setEnemyShipsDestroyed(0);
 		status.setNewEnemyShip(false);
-		
-		status.setScorePoints(0);
-	
+		status.setCurrentLevel(1);//TODO
+	    status.setAsteroidValue(5);//TODO
+	    status.setScorePoints(0);
 
 		// init the ship and the asteroid
 		newShip(gameScreen);
 		newAsteroid(gameScreen);
-
-		newEnemyShip(gameScreen);
+		newEnemyShip(gameScreen);//TODO
 
 		// prepare game screen
 		gameScreen.doNewGame();
@@ -116,6 +109,11 @@ public class GameLogic {
 				gameOver();
 			}
 		}
+		
+		//TODO
+		// check level over conditions
+		if(status.isLevelOver())
+			levelOver();
 	}
 
 	/**
@@ -139,7 +137,16 @@ public class GameLogic {
 		timer.setRepeats(false);
 		timer.start();
 	}
-
+	
+	public void levelOver(){
+		// update current level
+		status.updateCurrentLevel();
+		// reset value of asteroids destroyed
+		status.setAsteroidsDestroyed(0);
+		// set new target variables for next level
+		status.setLevelVariables();
+	}
+	
 	/**
 	 * Fire a bullet from ship.
 	 */
@@ -180,17 +187,13 @@ public class GameLogic {
 		return asteroid;
 	}
 
-
-	//-------------------------------------------------------------------------------------------------
 	/**
 	 * Create a new enemy ship.
 	 */
-	public EnemyShip newEnemyShip(GameScreen screen){
+	public EnemyShip newEnemyShip(GameScreen screen){//TODO
 		this.enemyShip = new EnemyShip(screen);
 		return enemyShip;
 	}
-
-
 
 	/**
 	 * Returns the ship.
@@ -208,15 +211,13 @@ public class GameLogic {
 		return asteroid;
 	}
 
-
 	/**
 	 * Returns the enemy ship.
 	 * @return the enemy ship
 	 */
-	public EnemyShip getEnemyShip () {
+	public EnemyShip getEnemyShip () {//TODO
 		return enemyShip;
 	}
-
 
 	/**
 	 * Returns the list of bullets.

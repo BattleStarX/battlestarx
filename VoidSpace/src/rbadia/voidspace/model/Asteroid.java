@@ -9,10 +9,12 @@ public class Asteroid extends Rectangle {
 	private static final long serialVersionUID = 1L;
 	
 	public static final int DEFAULT_SPEED = 4;
+	public static final int DEFAULT_DIRECTION = 0;
 	
 	private int asteroidWidth = 32;
 	private int asteroidHeight = 32;
 	private int speed = DEFAULT_SPEED;
+	private int direction = DEFAULT_DIRECTION; 
 
 	private Random rand = new Random();
 	
@@ -56,5 +58,19 @@ public class Asteroid extends Rectangle {
 	 */
 	public int getDefaultSpeed(){
 		return DEFAULT_SPEED;
+	}
+
+	public void setDirection(int direction){//TODO
+		this.direction = direction;
+	}
+	
+	public int getDirection() {//TODO
+		return direction;
+	}
+	
+	public void generateDirection() {//TODO
+		Random generator = new Random();
+		int random = generator.nextInt(3)-1;
+		setDirection(this.getSpeed()*random);
 	}
 }
