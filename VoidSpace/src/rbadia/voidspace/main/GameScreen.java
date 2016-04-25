@@ -101,7 +101,7 @@ public class GameScreen extends JPanel {
 		Asteroid asteroid = gameLogic.getAsteroid();
 		List<Bullet> bullets = gameLogic.getBullets();
 		
-		// set orignal font - for later use
+		// set original font - for later use
 		if(this.originalFont == null){
 			this.originalFont = g2d.getFont();
 			this.bigFont = originalFont;
@@ -147,7 +147,7 @@ public class GameScreen extends JPanel {
 		if(!status.isNewAsteroid()){
 			// draw the asteroid until it reaches the bottom of the screen
 			if(asteroid.getY() + asteroid.getSpeed() < this.getHeight()){
-				asteroid.translate(0, asteroid.getSpeed());
+				asteroid.translate(asteroid.getDirection(), asteroid.getSpeed());//TODO
 				graphicsMan.drawAsteroid(asteroid, g2d, this);
 			}
 			else{
@@ -161,6 +161,7 @@ public class GameScreen extends JPanel {
 				lastAsteroidTime = currentTime;
 				status.setNewAsteroid(false);
 				asteroid.setLocation(rand.nextInt(getWidth() - asteroid.width), 0);
+				asteroid.generateDirection();
 			}
 			else{
 				// draw explosion
