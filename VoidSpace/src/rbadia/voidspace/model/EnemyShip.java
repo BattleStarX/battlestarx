@@ -15,8 +15,8 @@ public class EnemyShip extends Rectangle {
 	public static final int DEFAULT_SPEED = 2;
 	//private static final int Y_OFFSET = 10; // initial y distance of the ship from the bottom of the screen 
 
-	private int enemyShipWidth = 40;
-	private int enemyShipHeight = 40;
+	private int enemyShipWidth = 32;
+	private int enemyShipHeight = 32;
 	private int enemySpeed = DEFAULT_SPEED;
 
 	private Random rand = new Random();
