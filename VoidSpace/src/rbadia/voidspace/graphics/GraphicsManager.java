@@ -13,6 +13,7 @@ import rbadia.voidspace.model.Bullet;
 import rbadia.voidspace.model.Ship;
 
 import rbadia.voidspace.model.EnemyShip;
+import rbadia.voidspace.model.FinalBoss;
 
 /**
  * Manages and draws game graphics and images.
@@ -25,6 +26,9 @@ public class GraphicsManager {
 	private BufferedImage shipExplosionImg;
 
 	private BufferedImage enemyShipImg;
+	private BufferedImage finalBossImg;
+	private BufferedImage bossExplosionImg;
+	private BufferedImage bossBulletImg;
 
 	/**
 	 * Creates a new graphics manager and loads the game images.
@@ -39,6 +43,9 @@ public class GraphicsManager {
 			this.bulletImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/bullet.png"));
 
 			this.enemyShipImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/enemyShip.png"));
+			this.finalBossImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/finalBossX.png"));
+			this.bossExplosionImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/bossExploX.gif"));
+			this.bossBulletImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/fire.png"));
 
 
 
@@ -71,6 +78,16 @@ public class GraphicsManager {
 	}
 
 	/**
+	 * Draws a bossBullet image to the specified graphics canvas.
+	 * @param bossBullet the bullet to draw
+	 * @param g2d the graphics canvas
+	 * @param observer object to be notified
+	 */
+	public void drawBossBullet(Bullet bossBullet, Graphics2D g2d, ImageObserver observer) {
+		g2d.drawImage(bossBulletImg, bossBullet.x, bossBullet.y, observer);
+	}
+
+	/**
 	 * Draws an asteroid image to the specified graphics canvas.
 	 * @param asteroid the asteroid to draw
 	 * @param g2d the graphics canvas
@@ -91,6 +108,10 @@ public class GraphicsManager {
 	public void drawEnemyShip(EnemyShip enemyShip, Graphics2D g2d, ImageObserver observer) {
 		g2d.drawImage(enemyShipImg, enemyShip.x, enemyShip.y, observer);
 	}
+
+	public void drawFinalBoss(FinalBoss finalBoss, Graphics2D g2d, ImageObserver observer) {
+		g2d.drawImage(finalBossImg, finalBoss.x, finalBoss.y, observer);
+	}
 	//----------------------------------------------------------------------------------------
 
 
@@ -105,6 +126,18 @@ public class GraphicsManager {
 	public void drawShipExplosion(Rectangle shipExplosion, Graphics2D g2d, ImageObserver observer) {
 		g2d.drawImage(shipExplosionImg, shipExplosion.x, shipExplosion.y, observer);
 	}
+
+
+	/**
+	 * Draws a boss explosion image to the specified graphics canvas.
+	 * @param bossExplosion the bounding rectangle of the explosion
+	 * @param g2d the graphics canvas
+	 * @param observer object to be notified
+	 */
+	public void drawBossExplosion(Rectangle bossExplosion, Graphics2D g2d, ImageObserver observer) {
+		g2d.drawImage(bossExplosionImg, bossExplosion.x, bossExplosion.y, observer);
+	}
+
 
 	/**
 	 * Draws an asteroid explosion image to the specified graphics canvas.

@@ -13,6 +13,9 @@ public class GameStatus {
 	private boolean newShip;
 	private boolean newAsteroid;	
 	private boolean newEnemyShip;
+	private boolean newFinalBoss;
+	private boolean showFinalBoss;
+	private boolean position;
 	private boolean levelOver = false;//TODO
 	private long asteroidsDestroyed = 0;
 	private int shipsLeft;
@@ -184,6 +187,34 @@ public class GameStatus {
 	public long getAsteroidsValue() {//TODO
 		return asteroidToDestroyValue;
 	}
+	
+	//----------------------------------
+	
+	public synchronized boolean isNewFinalBoss() {
+		return newFinalBoss;
+	}
+
+	public synchronized void setNewFinalBoss(boolean newFinalBoss) {
+		this.newFinalBoss = newFinalBoss;
+	}
+	
+	public synchronized boolean showFinalBoss() {
+		return showFinalBoss;
+	}
+
+	public synchronized void setShowFinalBoss(boolean showFinalBoss) {
+		this.showFinalBoss = showFinalBoss;
+	}
+	
+	public void setGoRight(boolean position) {
+		this.position = position;
+	}
+	public boolean goRight() {
+		return position;	
+	}
+	//----------------------------------
+	
+	
 	
 	public void setLevelVariables() {//TODO
 		switch(this.currentLevel){

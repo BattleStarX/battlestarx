@@ -19,6 +19,8 @@ import rbadia.voidspace.model.Bullet;
 import rbadia.voidspace.model.Ship;
 import rbadia.voidspace.sounds.SoundManager;
 import rbadia.voidspace.model.EnemyShip;//TODO
+import rbadia.voidspace.model.FinalBoss;
+
 
 /**
  * Main game screen. Handles all game graphics updates and some of the game logic.
@@ -39,14 +41,15 @@ public class GameScreen extends JPanel {
 
 	private Rectangle asteroidExplosion;
 	private Rectangle shipExplosion;
+	private Rectangle finalBossExplosion;
 
 	private JLabel shipsValueLabel;
 	private JLabel destroyedValueLabel;
 	private JLabel levelValueLabel;//TODO
-	
+
 	private JLabel scorePointsValueLabel;
 	private JLabel destroyedEnemyValueLabel;
-	
+
 	private long asteroidsToDestroyValue = 5;//TODO
 
 	private Random rand;
@@ -106,7 +109,9 @@ public class GameScreen extends JPanel {
 		Ship ship = gameLogic.getShip();
 		Asteroid asteroid = gameLogic.getAsteroid();
 		EnemyShip enemyShip = gameLogic.getEnemyShip();//TODO
+		FinalBoss finalBoss = gameLogic.getFinalBoss();
 		List<Bullet> bullets = gameLogic.getBullets();
+		List<Bullet> bossBullet = gameLogic.getBossBullet();
 
 		// set orignal font - for later use
 		if(this.originalFont == null){
@@ -180,7 +185,7 @@ public class GameScreen extends JPanel {
 				graphicsMan.drawAsteroidExplosion(asteroidExplosion, g2d, this);
 			}
 		}
-		
+
 		// draw enemy ship
 		if(!status.isNewEnemyShip()){//TODO
 			// draw the enemy ship until it reaches the bottom of the screen
@@ -217,6 +222,51 @@ public class GameScreen extends JPanel {
 				i--;
 			}
 		}
+
+		// draw FinalBoss bullets
+		for(int i=0; i<bossBullet.size(); i++){
+			Bullet bullet = bossBullet.get(i);
+			graphicsMan.drawBullet(bullet, g2d, this);
+
+			boolean remove = gameLogic.moveBossBullet(bullet);
+			if(remove){
+				bossBullet.remove(i);
+				i--;
+			}
+		}
+
+
+		//-------------------------------------------------
+
+		//Draw Final Boss
+		if(status.showFinalBoss()) {
+			if(!status.isNewFinalBoss()){
+				graphicsMan.drawFinalBoss(finalBoss, g2d, this);
+			}
+			if(status.goRight()) {
+				finalBoss.translate(2, 0);
+			} else {
+				finalBoss.translate(-2, 0);
+			}
+
+
+			if (finalBoss.getX()> this.getWidth()-46){
+				status.setGoRight(false);
+			}
+			else if(finalBoss.getX() <= 0){
+				status.setGoRight(true);
+			}
+
+
+
+			if(finalBoss.getX()%41 == 0) {
+				gameLogic.fireFinalBossBullet();
+			}
+
+		}
+
+		//-------------------------------------------------
+
 
 		// check bullet-asteroid collisions
 		for(int i=0; i<bullets.size(); i++){
@@ -272,6 +322,23 @@ public class GameScreen extends JPanel {
 			}
 		}
 
+
+
+		// check bullet-finalBoss collisions
+		for(int i=0; i<bullets.size(); i++){//TODO
+			Bullet bullet = bullets.get(i);
+			if(finalBoss.intersects(bullet)){
+				//				finalBossExplosion = new Rectangle(
+				//						finalBoss.x,
+				//						finalBoss.y,
+				//						finalBoss.width,
+				//						finalBoss.height);
+				//				finalBoss.setLocation(-finalBoss.width, -finalBoss.height);
+				break;
+			}
+		}
+
+
 		// draw ship
 		if(!status.isNewShip()){
 			// draw it in its current location
@@ -323,7 +390,7 @@ public class GameScreen extends JPanel {
 			// play asteroid explosion sound
 			soundMan.playAsteroidExplosionSound();
 		}
-		
+
 		// check ship-enemyShip collisions
 		if(enemyShip.intersects(ship)){//TODO
 			// decrease number of ships left
@@ -359,16 +426,16 @@ public class GameScreen extends JPanel {
 
 		// update asteroids destroyed label
 		destroyedValueLabel.setText(Long.toString(status.getAsteroidsDestroyed()) + " / " + asteroidsToDestroyValue);//TODO
-		
+
 		// update ships left label
 		shipsValueLabel.setText(Integer.toString(status.getShipsLeft()));
-		
+
 		//update score points label
 		scorePointsValueLabel.setText(Long.toString(status.getScorePoints()));
-		
+
 		//update enemy ships destroyed label
 		destroyedEnemyValueLabel.setText(Long.toString(status.getEnemyShipsDestroyed()));
-		
+
 		// update level label
 		levelValueLabel.setText(Integer.toString(status.getCurrentLevel()));//TODO
 	}
@@ -525,7 +592,7 @@ public class GameScreen extends JPanel {
 	public void setShipsValueLabel(JLabel shipsValueLabel) {
 		this.shipsValueLabel = shipsValueLabel;
 	}
-	
+
 	/**
 	 * Sets the label that displays the value of enemy ships destroyed.
 	 * @param destroyedEnemyShipsValueLabel the label to set
@@ -533,11 +600,11 @@ public class GameScreen extends JPanel {
 	public void setDestroyedEnemyShipsValueLabel(JLabel destroyedEnemyShipsValueLabel) {
 		this.destroyedEnemyValueLabel = destroyedEnemyShipsValueLabel;
 	}
-	
+
 	public void setLevelValueLabel(JLabel levelValueLabel) {//TODO comments
 		this.levelValueLabel = levelValueLabel;
 	}
-	
+
 	/**
 	 * Sets the label that displays the total score.
 	 * @param scorePointsValueLabel the label to set
@@ -545,7 +612,7 @@ public class GameScreen extends JPanel {
 	public void setScorePointsValueLabel(JLabel scorePointsValueLabel) {
 		this.scorePointsValueLabel = scorePointsValueLabel;
 	}
-	
+
 	public void setAsteroidValue(long asteroidToDestroyValue){//TODO remove
 		this.asteroidsToDestroyValue = asteroidToDestroyValue;
 	}

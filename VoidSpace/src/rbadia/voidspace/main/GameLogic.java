@@ -12,6 +12,9 @@ import rbadia.voidspace.model.Bullet;
 import rbadia.voidspace.model.Ship;
 import rbadia.voidspace.sounds.SoundManager;
 import rbadia.voidspace.model.EnemyShip;//TODO
+import rbadia.voidspace.model.FinalBoss;;
+
+
 
 
 /**
@@ -25,7 +28,9 @@ public class GameLogic {
 	private Ship ship;
 	private Asteroid asteroid;
 	private List<Bullet> bullets;
+	private List<Bullet> bossBullet;
 	private EnemyShip enemyShip;
+	private FinalBoss finalBoss;
 
 	/**
 	 * Create a new game logic handler
@@ -41,6 +46,7 @@ public class GameLogic {
 
 		// init some variables
 		bullets = new ArrayList<Bullet>();
+		bossBullet = new ArrayList<Bullet>();
 		soundMan.playIntroMusic();//TODO
 	}
 
@@ -69,6 +75,7 @@ public class GameLogic {
 		soundMan.playDuringMusic();
 		// init game variables
 		bullets = new ArrayList<Bullet>();
+		bossBullet = new ArrayList<Bullet>();
 
 		status.setShipsLeft(3);
 		status.setGameOver(false);
@@ -79,11 +86,13 @@ public class GameLogic {
 		status.setCurrentLevel(1);//TODO
 	    status.setAsteroidValue(5);//TODO
 	    status.setScorePoints(0);
+	    status.setShowFinalBoss(false);
 
 		// init the ship and the asteroid
 		newShip(gameScreen);
 		newAsteroid(gameScreen);
 		newEnemyShip(gameScreen);//TODO
+		newFinalBoss(gameScreen);
 
 		// prepare game screen
 		gameScreen.doNewGame();
@@ -145,6 +154,9 @@ public class GameLogic {
 		status.setAsteroidsDestroyed(0);
 		// set new target variables for next level
 		status.setLevelVariables();
+		
+		status.setShowFinalBoss(true);
+		
 	}
 	
 	/**
@@ -170,6 +182,27 @@ public class GameLogic {
 			return true;
 		}
 	}
+	
+	
+	
+	/**
+	 * Fire a finalBoss bullet from final Boss.
+	 */
+	public void fireFinalBossBullet(){
+		Bullet bossBullet = new Bullet(finalBoss);
+		bossBullet.add(bossBullet);
+		soundMan.playBulletSound();
+	}
+	public boolean moveBossBullet(Bullet bossBullet){
+		if(bossBullet.getY() - bossBullet.getSpeed() >= 0){
+			bossBullet.translate(0, bossBullet.getSpeed());
+			return false;
+		}
+		else{
+			return true;
+		}}
+	
+	
 
 	/**
 	 * Create a new ship (and replace current one).
@@ -218,6 +251,24 @@ public class GameLogic {
 	public EnemyShip getEnemyShip () {//TODO
 		return enemyShip;
 	}
+	
+	/**
+	 * Create a new finalBoss.
+	 */
+	public FinalBoss newFinalBoss(GameScreen screen){
+		this.finalBoss = new FinalBoss(screen);
+		return finalBoss;
+	}
+	
+	
+	/**
+	 * Returns the finalBoss.
+	 * @return the finalBoss
+	 */
+	public FinalBoss getFinalBoss() {
+		return finalBoss;
+	}
+	
 
 	/**
 	 * Returns the list of bullets.
@@ -225,5 +276,12 @@ public class GameLogic {
 	 */
 	public List<Bullet> getBullets() {
 		return bullets;
+	}
+	/**
+	 * Returns the list of boss bullets.
+	 * @return the list of boss bullets
+	 */
+	public List<Bullet> getBossBullet() {
+		return bossBullet;
 	}
 }

@@ -20,6 +20,19 @@ public class Bullet extends Rectangle {
 				ship.y - bulletHeight);
 		this.setSize(bulletWidth, bulletHeight);
 	}
+	
+	
+	/**
+	 * Creates a new Final Boss bullet 
+	 * @param finalBoss
+	 */
+	public Bullet(FinalBoss finalBoss) {
+		this.setLocation(finalBoss.x + 8 + finalBoss.width  /2 - bulletWidth/2,
+				finalBoss.y + 60 - bulletHeight);
+		this.setSize(bulletWidth, bulletHeight);
+	}
+	
+	
 
 	/**
 	 * Return the bullet's speed.
