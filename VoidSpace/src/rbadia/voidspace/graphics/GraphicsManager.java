@@ -44,7 +44,7 @@ public class GraphicsManager {
 
 			this.enemyShipImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/enemyShip.png"));
 			this.finalBossImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/finalBossX.png"));
-			this.bossExplosionImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/shipExplosion.png"));
+			this.bossExplosionImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/bossExploX.gif"));
 			this.bossBulletImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/fire.png"));
 
 

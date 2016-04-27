@@ -51,7 +51,7 @@ public class MainFrame extends JFrame {
 	private void initialize() {
 		this.setSize(550, 490);
 		this.setContentPane(getJContentPane());
-		this.setTitle("Void Space");
+		this.setTitle("BattleStar X");
 //		this.setResizable(false);
 		
 		Dimension dim = this.getToolkit().getScreenSize();

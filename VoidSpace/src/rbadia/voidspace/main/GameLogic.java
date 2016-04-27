@@ -84,9 +84,9 @@ public class GameLogic {
 		status.setEnemyShipsDestroyed(0);
 		status.setNewEnemyShip(false);
 		status.setCurrentLevel(1);//TODO
-	    status.setAsteroidValue(5);//TODO
-	    status.setScorePoints(0);
-	    status.setShowFinalBoss(false);
+		status.setAsteroidValue(5);//TODO
+		status.setScorePoints(0);
+		status.setShowFinalBoss(true);
 
 		// init the ship and the asteroid
 		newShip(gameScreen);
@@ -118,7 +118,7 @@ public class GameLogic {
 				gameOver();
 			}
 		}
-		
+
 		//TODO
 		// check level over conditions
 		if(status.isLevelOver())
@@ -146,7 +146,7 @@ public class GameLogic {
 		timer.setRepeats(false);
 		timer.start();
 	}
-	
+
 	public void levelOver(){
 		// update current level
 		status.updateCurrentLevel();
@@ -154,11 +154,11 @@ public class GameLogic {
 		status.setAsteroidsDestroyed(0);
 		// set new target variables for next level
 		status.setLevelVariables();
-		
-		status.setShowFinalBoss(true);
-		
+
+		//status.setShowFinalBoss(true);
+
 	}
-	
+
 	/**
 	 * Fire a bullet from ship.
 	 */
@@ -182,27 +182,28 @@ public class GameLogic {
 			return true;
 		}
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Fire a finalBoss bullet from final Boss.
 	 */
 	public void fireFinalBossBullet(){
-		Bullet bossBullet = new Bullet(finalBoss);
-		bossBullet.add(bossBullet);
-		soundMan.playBulletSound();
+		Bullet bossBullets = new Bullet(finalBoss);
+		bossBullet.add(bossBullets);
+		soundMan.playBossBulletSound();
+		//soundMan.stopBossBulletSound();
 	}
 	public boolean moveBossBullet(Bullet bossBullet){
 		if(bossBullet.getY() - bossBullet.getSpeed() >= 0){
-			bossBullet.translate(0, bossBullet.getSpeed());
+			bossBullet.translate(0, bossBullet.getSpeed() - 9);
 			return false;
 		}
 		else{
 			return true;
 		}}
-	
-	
+
+
 
 	/**
 	 * Create a new ship (and replace current one).
@@ -251,7 +252,7 @@ public class GameLogic {
 	public EnemyShip getEnemyShip () {//TODO
 		return enemyShip;
 	}
-	
+
 	/**
 	 * Create a new finalBoss.
 	 */
@@ -259,8 +260,8 @@ public class GameLogic {
 		this.finalBoss = new FinalBoss(screen);
 		return finalBoss;
 	}
-	
-	
+
+
 	/**
 	 * Returns the finalBoss.
 	 * @return the finalBoss
@@ -268,7 +269,7 @@ public class GameLogic {
 	public FinalBoss getFinalBoss() {
 		return finalBoss;
 	}
-	
+
 
 	/**
 	 * Returns the list of bullets.

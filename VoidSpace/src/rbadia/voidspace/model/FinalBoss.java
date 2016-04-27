@@ -15,8 +15,8 @@ public class FinalBoss extends Rectangle {
 	public static final int DEFAULT_SPEED = 300;
 	private static final int Y_OFFSET = 300; // initial y distance of the ship from the bottom of the screen 
 
-	private int bossWidth = 50;
-	private int bossHeight = 50;
+	private int bossWidth = 45;
+	private int bossHeight = 75;
 	private int speed = DEFAULT_SPEED;
 
 	/**
