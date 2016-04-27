@@ -73,5 +73,4 @@ public class EnemyShip extends Rectangle {
 	public int getDefaultSpeed(){
 		return DEFAULT_SPEED;
 	}
-
 }
