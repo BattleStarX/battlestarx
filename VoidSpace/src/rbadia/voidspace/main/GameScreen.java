@@ -225,10 +225,10 @@ public class GameScreen extends JPanel {
 
 		// draw FinalBoss bullets
 		for(int i=0; i<bossBullet.size(); i++){
-			Bullet bullet = bossBullet.get(i);
-			graphicsMan.drawBullet(bullet, g2d, this);
+			Bullet bossBullets = bossBullet.get(i);
+			graphicsMan.drawBullet(bossBullets, g2d, this);
 
-			boolean remove = gameLogic.moveBossBullet(bullet);
+			boolean remove = gameLogic.moveBossBullet(bossBullets);
 			if(remove){
 				bossBullet.remove(i);
 				i--;
@@ -274,7 +274,7 @@ public class GameScreen extends JPanel {
 			if(asteroid.intersects(bullet)){
 				// increase asteroids destroyed count
 				status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 1);
-				status.setScorePoints(status.getScorePoints() + 500);
+				status.setScorePoints(status.getScorePoints() + 100);
 
 				// "remove" asteroid
 				asteroidExplosion = new Rectangle(
@@ -301,7 +301,7 @@ public class GameScreen extends JPanel {
 			if(enemyShip.intersects(bullet)){
 				// increase enemyShips destroyed count
 				status.setEnemyShipsDestroyed(status.getEnemyShipsDestroyed() + 1);
-				status.setScorePoints(status.getScorePoints() + 1000);
+				status.setScorePoints(status.getScorePoints() + 500);
 
 				// "remove" enemyShip
 				shipExplosion = new Rectangle(
@@ -324,16 +324,24 @@ public class GameScreen extends JPanel {
 
 
 
-		// check bullet-finalBoss collisions
+		// check bullet-finalBoss collision
 		for(int i=0; i<bullets.size(); i++){//TODO
 			Bullet bullet = bullets.get(i);
-			if(finalBoss.intersects(bullet)){
-				//				finalBossExplosion = new Rectangle(
-				//						finalBoss.x,
-				//						finalBoss.y,
-				//						finalBoss.width,
-				//						finalBoss.height);
-				//				finalBoss.setLocation(-finalBoss.width, -finalBoss.height);
+			if(bullet.intersects(finalBoss)){
+
+				// "remove" finalBoss
+				finalBossExplosion = new Rectangle(
+						finalBoss.x,
+						finalBoss.y,
+						finalBoss.width,
+						finalBoss.height);
+			//finalBoss.setLocation(-finalBoss.width, -finalBoss.height);
+				status.setNewFinalBoss(false);
+				soundMan.playShipExplosionSound();
+				bullets.remove(i);
+				//status.setGameStarted(false);
+				//  soundMan.stopDuringMusic();
+				//soundMan.playIntroMusic();
 				break;
 			}
 		}
@@ -389,6 +397,27 @@ public class GameScreen extends JPanel {
 			soundMan.playShipExplosionSound();
 			// play asteroid explosion sound
 			soundMan.playAsteroidExplosionSound();
+		}
+
+		// check bossBullet-ship collisions
+		for(int i=0; i<bossBullet.size(); i++){
+			Bullet bossBullets = bossBullet.get(i);
+			if(ship.intersects(bossBullets)){
+				// decrease number of ships left
+				status.setShipsLeft(status.getShipsLeft() - 1);
+				// "remove" asteroid
+				finalBossExplosion = new Rectangle(
+						finalBoss.x,
+						finalBoss.y,
+						finalBoss.width,
+						finalBoss.height);
+				finalBoss.setLocation(-finalBoss.width, -finalBoss.height);
+				// play asteroid explosion sound
+				soundMan.playAsteroidExplosionSound();
+				// remove bullet
+				bossBullet.remove(i);
+				break;
+			}
 		}
 
 		// check ship-enemyShip collisions
@@ -460,7 +489,7 @@ public class GameScreen extends JPanel {
 		int strX = (this.getWidth() - strWidth)/2;
 		int strY = (this.getHeight() + ascent)/2;
 		g2d.setFont(bigFont);
-		g2d.setPaint(Color.WHITE);
+		g2d.setPaint(Color.MAGENTA);
 		g2d.drawString(gameOverStr, strX, strY);
 	}
 
@@ -469,7 +498,7 @@ public class GameScreen extends JPanel {
 	 */
 	private void drawGetReady() {
 		String readyStr = "Get Ready!";
-		g2d.setFont(originalFont.deriveFont(originalFont.getSize2D() + 1));
+		g2d.setFont(originalFont.deriveFont(originalFont.getSize2D() + 10));
 		FontMetrics fm = g2d.getFontMetrics();
 		int ascent = fm.getAscent();
 		int strWidth = fm.stringWidth(readyStr);

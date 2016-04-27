@@ -6,14 +6,14 @@ import java.awt.Rectangle;
 import rbadia.voidspace.main.GameScreen;
 
 /**
- * Represents a Enemy ship/space craft.
+ * Represents a Final Boss.
  *
  */
 public class FinalBoss extends Rectangle {
 	private static final long serialVersionUID = 1L;
 
-	public static final int DEFAULT_SPEED = 10;
-	private static final int Y_OFFSET = 320; // initial y distance of the ship from the bottom of the screen 
+	public static final int DEFAULT_SPEED = 300;
+	private static final int Y_OFFSET = 300; // initial y distance of the ship from the bottom of the screen 
 
 	private int bossWidth = 50;
 	private int bossHeight = 50;
