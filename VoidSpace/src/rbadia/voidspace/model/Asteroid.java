@@ -15,6 +15,7 @@ public class Asteroid extends Rectangle {
 	private int asteroidHeight = 32;
 	private int speed = DEFAULT_SPEED;
 	private int direction = DEFAULT_DIRECTION; 
+	private boolean isOnScreen = true;
 
 	private Random rand = new Random();
 	
@@ -72,5 +73,13 @@ public class Asteroid extends Rectangle {
 		Random generator = new Random();
 		int random = generator.nextInt(3)-1;
 		setDirection(this.getSpeed()*random);
+	}
+	
+	public boolean isOnScreen(){//TODO
+		return isOnScreen;
+	}
+	
+	public void setOnScreen(boolean isOnScreen){
+		this.isOnScreen = isOnScreen;
 	}
 }

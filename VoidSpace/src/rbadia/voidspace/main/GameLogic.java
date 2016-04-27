@@ -25,6 +25,7 @@ public class GameLogic {
 	private Ship ship;
 	private Asteroid asteroid;
 	private List<Bullet> bullets;
+	private List<Asteroid> asteroids;//TODO
 	private EnemyShip enemyShip;
 
 	/**
@@ -41,6 +42,7 @@ public class GameLogic {
 
 		// init some variables
 		bullets = new ArrayList<Bullet>();
+		asteroids = new ArrayList<Asteroid>();//TODO
 		soundMan.playIntroMusic();
 	}
 
@@ -67,9 +69,11 @@ public class GameLogic {
 		status.setGameStarting(true);
 		soundMan.stopIntroMusic();
 		soundMan.playDuringMusic();
+		
 		// init game variables
 		bullets = new ArrayList<Bullet>();
-
+		asteroids = new ArrayList<Asteroid>();//TODO
+		
 		status.setShipsLeft(3);
 		status.setGameOver(false);
 		status.setAsteroidsDestroyed(0);
@@ -82,9 +86,11 @@ public class GameLogic {
 
 		// init the ship and the asteroid
 		newShip(gameScreen);
-		newAsteroid(gameScreen);
+		newAsteroid(gameScreen);//TODO
 		newEnemyShip(gameScreen);
 
+		generateAsteroids(3);
+		
 		// prepare game screen
 		gameScreen.doNewGame();
 
@@ -176,7 +182,7 @@ public class GameLogic {
 		this.asteroid = new Asteroid(screen);
 		return asteroid;
 	}
-
+	
 	/**
 	 * Create a new enemy ship.
 	 */
@@ -215,5 +221,20 @@ public class GameLogic {
 	 */
 	public List<Bullet> getBullets() {
 		return bullets;
+	}
+	
+	public List<Asteroid> getAsteroids() {
+		return asteroids;
+	}
+	
+	public void generateAsteroids(int n){
+		for(int i=0; i<n; i++){
+			addAsteroid(gameScreen);
+		}
+	}
+	
+	public void addAsteroid(GameScreen screen){
+		this.asteroid = newAsteroid(screen);
+		asteroids.add(asteroid);
 	}
 }
