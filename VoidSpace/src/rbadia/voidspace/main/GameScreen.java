@@ -107,6 +107,7 @@ public class GameScreen extends JPanel {
 		Asteroid asteroid = gameLogic.getAsteroid();
 		EnemyShip enemyShip = gameLogic.getEnemyShip();//TODO
 		List<Bullet> bullets = gameLogic.getBullets();
+		asteroidsToDestroyValue = status.getAsteroidsValue();
 
 		// set orignal font - for later use
 		if(this.originalFont == null){
