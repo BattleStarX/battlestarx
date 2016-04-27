@@ -35,15 +35,11 @@ public class GameScreen extends JPanel {
 	private static final int NEW_ASTEROID_DELAY = 500;
 	private static final int NEW_ENEMYSHIP_DELAY = 500;//TODO
 
-	private static final int NEW_FINALBOSS_DELAY = 500;
 
 
 	private long lastShipTime;
 	private long lastAsteroidTime;
 	private long lastEnemyShipTime;//TODO
-
-	private long lastFinalBossTime;
-
 
 	private Rectangle asteroidExplosion;
 	private Rectangle shipExplosion;
@@ -259,39 +255,53 @@ public class GameScreen extends JPanel {
 			} else {
 				finalBoss.translate(-2, 0);
 			}
-
-
 			if (finalBoss.getX()> this.getWidth()-46){
 				status.setGoRight(false);
 			}
 			else if(finalBoss.getX() <= 0){
 				status.setGoRight(true);
 			}
-
-
-
 			if(finalBoss.getX()%41 == 0) {
 				gameLogic.fireFinalBossBullet();
 
 			}
 
-			//		else{
-			//			graphicsMan.drawBossExplosion(bossExplosion, g2d, this);
-			//		}
+
+			//graphicsMan.drawBossExplosion(bossExplosion , g2d, this);
+
+		}
+
+
+
+
+		/*	if(!status.isNewFinalBoss()){
+			// draw the asteroid until it reaches the bottom of the screen
+			if(finalBoss.getY() + finalBoss.getSpeed() < this.getHeight()){
+				//finalBoss.translate(finalBoss.getDirection(), finalBoss.getSpeed());//TODO
+				graphicsMan.drawFinalBoss(finalBoss, g2d, this);
+			}
+			else{
+				finalBoss.setLocation(rand.nextInt(getWidth() - finalBoss.width), 0);
+			}
 		}
 		else{
 			long currentTime = System.currentTimeMillis();
-			if((currentTime - lastFinalBossTime) > NEW_FINALBOSS_DELAY){
-				// draw a new enemy ship
-				lastFinalBossTime = currentTime;
-				status.setNewFinalBoss(false);
-				finalBoss.setLocation(rand.nextInt(getWidth() - finalBoss.width), 0);
+			if((currentTime - lastAsteroidTime) > NEW_ASTEROID_DELAY){
+				// draw a new asteroid
+				lastAsteroidTime = currentTime;
+				status.setNewAsteroid(false);
+				finalBoss.setLocation(rand.nextInt(getWidth() - asteroid.width), 0);
+				//finalBoss.generateDirection();
 			}
 			else{
 				// draw explosion
-				graphicsMan.drawBossExplosion(bossExplosion , g2d, this);
+				graphicsMan.drawBossExplosion(bossExplosion, g2d, this);
 			}
 		}
+		 */
+
+
+
 		//-------------------------------------------------
 
 
@@ -452,7 +462,6 @@ public class GameScreen extends JPanel {
 		if(enemyShip.intersects(ship)){//TODO
 			// decrease number of ships left
 			status.setShipsLeft(status.getShipsLeft() - 1);
-
 			status.setEnemyShipsDestroyed(status.getEnemyShipsDestroyed() + 1);
 
 			// "remove" enemyShip

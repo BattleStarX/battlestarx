@@ -87,7 +87,7 @@ public class GameLogic {
 		status.setAsteroidValue(5);//TODO
 		status.setScorePoints(0);
 		//**********************************************************************************************
-		status.setShowFinalBoss(true);
+		//status.setShowFinalBoss(true);
 
 		// init the ship and the asteroid
 		newShip(gameScreen);
@@ -157,7 +157,10 @@ public class GameLogic {
 		// set new target variables for next level
 		status.setLevelVariables();
 //******************************************************************************************************
-		//status.setShowFinalBoss(true);
+		status.setShowFinalBoss(true);
+		soundMan.stopDuringMusic();
+		soundMan.playTensionMusic();
+		
 
 	}
 
@@ -259,8 +262,8 @@ public class GameLogic {
 	 */
 	public FinalBoss newFinalBoss(GameScreen screen){
 		this.finalBoss = new FinalBoss(screen);
-		soundMan.playTensionMusic();
-		soundMan.stopDuringMusic();
+//		soundMan.playTensionMusic();
+//		soundMan.stopDuringMusic();
 		return finalBoss;
 	}
 
