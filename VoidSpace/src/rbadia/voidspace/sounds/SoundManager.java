@@ -23,7 +23,66 @@ public class SoundManager {
 			"/rbadia/voidspace/sounds/gameOver.wav"));
 	private AudioClip bossBulletSound = Applet.newAudioClip(GameScreen.class.getResource(
 			"/rbadia/voidspace/sounds/bossShotSound.wav"));
+	private AudioClip victorySound = Applet.newAudioClip(GameScreen.class.getResource(
+			"/rbadia/voidspace/sounds/victorySound.wav"));
+	private AudioClip tensionMusic = Applet.newAudioClip(GameScreen.class.getResource(
+			"/rbadia/voidspace/sounds/tensionMusic.wav"));
 
+	
+	
+	/**
+	 * Plays sound for victory.
+	 */
+	public void playVictorySound(){
+		if(SOUND_ON){
+			new Thread(new Runnable(){
+				public void run() {
+					victorySound.play();
+				}
+			}).start();
+		}
+	}
+	/**
+	 * Stops sound for victory.
+	 */
+	public void stopVictorySound(){
+		if(SOUND_ON){
+			new Thread(new Runnable(){
+				public void run() {
+					victorySound.stop();
+				}
+			}).start();
+		}
+	}
+	/**
+	 * Plays sound for Tension.
+	 */
+	public void playTensionMusic(){
+		if(SOUND_ON){
+			new Thread(new Runnable(){
+				public void run() {
+					tensionMusic.play();
+				}
+			}).start();
+		}
+	}
+	/**
+	 * Stops sound for Tension.
+	 */
+	public void stopTensionMusic(){
+		if(SOUND_ON){
+			new Thread(new Runnable(){
+				public void run() {
+					tensionMusic.stop();
+				}
+			}).start();
+		}
+	}
+	
+	
+	
+	
+	
 	/**
 	 * Plays sound for bullets fired by the ship.
 	 */

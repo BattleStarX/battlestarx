@@ -86,6 +86,7 @@ public class GameLogic {
 		status.setCurrentLevel(1);//TODO
 		status.setAsteroidValue(5);//TODO
 		status.setScorePoints(0);
+		//**********************************************************************************************
 		status.setShowFinalBoss(true);
 
 		// init the ship and the asteroid
@@ -132,6 +133,7 @@ public class GameLogic {
 		status.setGameStarted(false);
 		status.setGameOver(true);
 		soundMan.stopDuringMusic();
+		soundMan.stopTensionMusic();
 		soundMan.playGameOverSound();
 		gameScreen.doGameOver();
 
@@ -154,7 +156,7 @@ public class GameLogic {
 		status.setAsteroidsDestroyed(0);
 		// set new target variables for next level
 		status.setLevelVariables();
-
+//******************************************************************************************************
 		//status.setShowFinalBoss(true);
 
 	}
@@ -192,7 +194,6 @@ public class GameLogic {
 		Bullet bossBullets = new Bullet(finalBoss);
 		bossBullet.add(bossBullets);
 		soundMan.playBossBulletSound();
-		//soundMan.stopBossBulletSound();
 	}
 	public boolean moveBossBullet(Bullet bossBullet){
 		if(bossBullet.getY() - bossBullet.getSpeed() >= 0){
@@ -258,6 +259,8 @@ public class GameLogic {
 	 */
 	public FinalBoss newFinalBoss(GameScreen screen){
 		this.finalBoss = new FinalBoss(screen);
+		soundMan.playTensionMusic();
+		soundMan.stopDuringMusic();
 		return finalBoss;
 	}
 

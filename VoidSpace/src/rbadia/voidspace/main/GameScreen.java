@@ -363,6 +363,9 @@ public class GameScreen extends JPanel {
 				// play asteroid explosion sound
 				soundMan.playShipExplosionSound();
 				soundMan.stopBossBulletSound();
+				soundMan.stopDuringMusic();
+				soundMan.stopTensionMusic();
+				soundMan.playVictorySound();
 				// remove bullet
 				bullets.remove(i);
 				break;
