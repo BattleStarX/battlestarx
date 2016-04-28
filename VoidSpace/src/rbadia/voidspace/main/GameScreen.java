@@ -308,10 +308,8 @@ public class GameScreen extends JPanel {
 
 			//graphicsMan.drawBossExplosion(bossExplosion , g2d, this);
 
-		}else if (!status.showFinalBoss()){
-			graphicsMan.drawBossExplosion(bossExplosion , g2d, this);
-
 		}
+
 
 
 
@@ -389,7 +387,7 @@ public class GameScreen extends JPanel {
 						enemyShip.width,
 						enemyShip.height);
 				enemyShip.setLocation(-enemyShip.width, -enemyShip.height);
-				status.setNewEnemyShip(true);
+				//status.setNewEnemyShip(false);
 				lastEnemyShipTime = System.currentTimeMillis();
 
 				// play enemyShip explosion sound
@@ -405,23 +403,28 @@ public class GameScreen extends JPanel {
 		for(int i=0; i<bullets.size(); i++){
 			Bullet bullet = bullets.get(i);
 			if(finalBoss.intersects(bullet)){
-				status.setFinalBossDestroyed(true);
-				// "remove" asteroid
-				bossExplosion = new Rectangle(
-						finalBoss.x,
-						finalBoss.y,
-						finalBoss.width,
-						finalBoss.height);
-				finalBoss.setLocation(-finalBoss.width, -finalBoss.height);
-				// play asteroid explosion sound
+				status.setBossLife(status.getBossLife() - 1);
 				soundMan.playShipExplosionSound();
-				soundMan.stopBossBulletSound();
-				soundMan.stopDuringMusic();
-				soundMan.stopTensionMusic();
-				soundMan.playVictorySound();
+				//status.setFinalBossDestroyed(true);
+
+				// "remove" asteroid
+				//				bossExplosion = new Rectangle(
+				//						finalBoss.x,
+				//						finalBoss.y,
+				//						finalBoss.width,
+				//						finalBoss.height);
+				//				finalBoss.setLocation(-finalBoss.width, -finalBoss.height);
+				//				status.setNewFinalBoss(true);
+				//				// play asteroid explosion sound
+				//				soundMan.playShipExplosionSound();
+				//				soundMan.stopBossBulletSound();
+				//				soundMan.stopDuringMusic();
+				//				soundMan.stopTensionMusic();
+				//				soundMan.playVictorySound();
 				// remove bullet
 				bullets.remove(i);
 				break;
+
 			}
 		}
 
@@ -584,22 +587,14 @@ public class GameScreen extends JPanel {
 	 * Draws the "Game Win" message.
 	 */
 	private void drawGameWin() {
-		String gameWinStr = "YOU WIN!";
-		Font currentFont = biggestFont == null? bigFont : biggestFont;
-		float fontSize = currentFont.getSize2D();
-		bigFont = currentFont.deriveFont(fontSize + 1).deriveFont(Font.ITALIC);
-		FontMetrics fm = g2d.getFontMetrics(bigFont);
-		int strWidth = fm.stringWidth(gameWinStr);
-		if(strWidth > this.getWidth() - 10){
-			biggestFont = currentFont;
-			bigFont = biggestFont;
-			fm = g2d.getFontMetrics(bigFont);
-			strWidth = fm.stringWidth(gameWinStr);
-		}
+
+		String gameWinStr = "You Win!";
+		g2d.setFont(originalFont.deriveFont(originalFont.getSize2D() + 75).deriveFont(Font.BOLD));
+		FontMetrics fm = g2d.getFontMetrics();
 		int ascent = fm.getAscent();
+		int strWidth = fm.stringWidth(gameWinStr);
 		int strX = (this.getWidth() - strWidth)/2;
 		int strY = (this.getHeight() + ascent)/2;
-		g2d.setFont(bigFont);
 		g2d.setPaint(Color.CYAN);
 		g2d.drawString(gameWinStr, strX, strY);
 	}

@@ -20,6 +20,7 @@ public class GameStatus {
 	private boolean levelOver = false;//TODO
 	private long asteroidsDestroyed = 0;
 	private int shipsLeft;
+	private int bossLife;
 	private int scorePoints = 0;
 	private long enemyShipsDestroyed = 0;
 	private boolean finalBossDestroyed = false;
@@ -91,6 +92,21 @@ public class GameStatus {
 	public synchronized void setGameWin(boolean gameWin) {
 		this.gameWin = gameWin;
 	}
+	
+	
+	/**
+	 * Returns the number of boss life.
+	 * @return the number of boss life
+	 */
+	public synchronized int getBossLife() {
+		return bossLife;
+	}
+
+	public synchronized void setBossLife(int bossLife) {
+		this.bossLife = bossLife;
+	}
+	
+	
 	//------------------------------------------------------------------------------------------
 
 	/**
