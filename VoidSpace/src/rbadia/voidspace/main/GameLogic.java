@@ -125,12 +125,6 @@ public class GameLogic {
 				gameWin();
 			}
 		}
-		/*// check game won conditions
-		if (!status.isGameWin() && status.isGameStarted()){
-			if(status.isFinalBossDestroyed()){
-				gameWin();
-			}
-		}*///TODO
 		
 		// check level over conditions
 		if(status.isLevelOver()){
@@ -138,7 +132,7 @@ public class GameLogic {
 			if(status.getCurrentLevel() == 9){
 				status.setShowFinalBoss(true);
 				soundMan.stopDuringMusic();
-				soundMan.playTensionMusic();
+				//soundMan.playTensionMusic();
 			}
 			else {
 				status.updateCurrentLevel();
@@ -225,7 +219,7 @@ public class GameLogic {
 	}
 	public boolean moveBossBullet(Bullet bossBullet){
 		if(bossBullet.getY() - bossBullet.getSpeed() >= 0){
-			bossBullet.translate(0, bossBullet.getSpeed() - 9);
+			bossBullet.translate(0, bossBullet.getSpeed() - 10);
 			return false;
 		}
 		else{
