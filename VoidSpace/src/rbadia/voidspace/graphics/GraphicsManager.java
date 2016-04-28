@@ -135,4 +135,13 @@ public class GraphicsManager {
 		g2d.drawImage(asteroidExplosionImg, asteroidExplosion.x, asteroidExplosion.y, observer);
 	}
 
+	/**
+	 * Draws an enemy ship explosion image to the specified graphics canvas.
+	 * @param enemyShipExplosion the bounding rectangle of the explosion
+	 * @param g2d the graphics canvas
+	 * @param observer object to be notified
+	 */
+	public void drawEnemyShipExplosion(Rectangle enemyShipExplosion, Graphics2D g2d, ImageObserver observer) {
+		g2d.drawImage(shipExplosionImg, enemyShipExplosion.x, enemyShipExplosion.y, observer);
+	}
 }
