@@ -1,4 +1,5 @@
 package rbadia.voidspace.main;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -35,6 +36,8 @@ public class MainFrame extends JFrame {
 	private JLabel levelLabel;
 	private JLabel levelValueLabel;
 	
+	private JLabel turboMessage = new JLabel ("Press SHIFT for turbo");
+	
 	/**
 	 * This is the default constructor
 	 */
@@ -69,6 +72,19 @@ public class MainFrame extends JFrame {
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			
+			GridBagConstraints gridBagConstraints12 = new GridBagConstraints();
+			gridBagConstraints12.insets = new Insets(0, 0, 0, 0);
+			gridBagConstraints12.gridy = 5;
+			gridBagConstraints12.anchor = GridBagConstraints.EAST;
+			gridBagConstraints12.weightx = 1.0D;
+			gridBagConstraints12.gridx = 0;
+			
+			GridBagConstraints gridBagConstraints11 = new GridBagConstraints();//
+			gridBagConstraints11.insets = new Insets(0, 0, 0, 0);
+			gridBagConstraints11.gridy = 4;
+			gridBagConstraints11.anchor = GridBagConstraints.EAST;
+			gridBagConstraints11.weightx = 1.0D;
+			gridBagConstraints11.gridx = 0;
 			
 			GridBagConstraints gridBagConstraints10 = new GridBagConstraints();
 			gridBagConstraints10.insets = new Insets(0, 0, 0, 0);
@@ -118,30 +134,35 @@ public class MainFrame extends JFrame {
 			gridBagConstraints4.anchor = GridBagConstraints.WEST;
 			gridBagConstraints4.weightx = 1.0D;
 			gridBagConstraints4.gridx = 3;
+			
 			GridBagConstraints gridBagConstraints3 = new GridBagConstraints();
 			gridBagConstraints3.insets = new Insets(0, 0, 0, 0);
 			gridBagConstraints3.gridy = 1;
 			gridBagConstraints3.anchor = GridBagConstraints.EAST;
 			gridBagConstraints3.weightx = 1.0D;
 			gridBagConstraints3.gridx = 2;
+			
 			GridBagConstraints gridBagConstraints2 = new GridBagConstraints();
 			gridBagConstraints2.insets = new Insets(0, 0, 0, 0);
 			gridBagConstraints2.gridy = 1;
 			gridBagConstraints2.anchor = GridBagConstraints.WEST;
 			gridBagConstraints2.weightx = 1.0D;
 			gridBagConstraints2.gridx = 1;
+			
 			GridBagConstraints gridBagConstraints1 = new GridBagConstraints();
 			gridBagConstraints1.insets = new Insets(0, 0, 0, 0);
 			gridBagConstraints1.gridy = 1;
 			gridBagConstraints1.anchor = GridBagConstraints.EAST;
 			gridBagConstraints1.weightx = 1.0D;
 			gridBagConstraints1.gridx = 0;
+			
 			GridBagConstraints gridBagConstraints = new GridBagConstraints();
 			gridBagConstraints.insets = new Insets(0, 0, 0, 0);
 			gridBagConstraints.gridx = 0;
 			gridBagConstraints.gridy = 0;
 			gridBagConstraints.fill = GridBagConstraints.NONE;
 			gridBagConstraints.gridwidth = 4;
+			
 			shipsLabel = new JLabel("Ships Left: ");
 			shipsValueLabel = new JLabel("3");
 			destroyedLabel = new JLabel("Asteroids Destroyed: ");
@@ -153,6 +174,8 @@ public class MainFrame extends JFrame {
 			scorePointsLabel = new JLabel("Total Score: ");
 			scorePointsValueLabel = new JLabel("0");
 			
+			turboMessage.setForeground(Color.RED);
+			
 			jContentPane = new JPanel();
 			jContentPane.setLayout(new GridBagLayout());
 			jContentPane.add(getGameScreen(), gridBagConstraints);
@@ -162,12 +185,11 @@ public class MainFrame extends JFrame {
 			jContentPane.add(destroyedValueLabel, gridBagConstraints4);
 			jContentPane.add(levelLabel, gridBagConstraints5);
 			jContentPane.add(levelValueLabel, gridBagConstraints6);
-			
 			jContentPane.add(scorePointsLabel, gridBagConstraints8);
 			jContentPane.add(scorePointsValueLabel, gridBagConstraints7);
 			jContentPane.add(destroyedEnemyShipsLabel, gridBagConstraints9);
 			jContentPane.add(destroyedEnemyShipsValueLabel, gridBagConstraints10);
-
+			jContentPane.add(turboMessage, gridBagConstraints11);
 		}
 		return jContentPane;
 	}

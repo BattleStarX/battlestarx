@@ -73,7 +73,7 @@ public class GameLogic {
 		bullets = new ArrayList<Bullet>();
 		asteroids = new ArrayList<Asteroid>();
 
-		status.setShipsLeft(3);
+		status.setShipsLeft(5);
 		status.setGameOver(false);
 		status.setAsteroidsDestroyed(0);
 		status.setNewAsteroid(false);

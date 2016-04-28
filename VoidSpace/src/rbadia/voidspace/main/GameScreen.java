@@ -60,7 +60,7 @@ public class GameScreen extends JPanel {
 	private SoundManager soundMan;
 	private GraphicsManager graphicsMan;
 	private GameLogic gameLogic;
-
+	
 	/**
 	 * This method initializes 
 	 * 
@@ -509,7 +509,7 @@ public class GameScreen extends JPanel {
 	 * @param numberOfStars the number of stars to draw
 	 */
 	private void drawStars(int numberOfStars) {//TODO
-		g2d.setColor(Color.WHITE);
+		g2d.setColor(Color.LIGHT_GRAY);
 		for(int i=0; i<numberOfStars; i++){
 			int x = (int)(Math.random() * this.getWidth());
 			int y = (int)(Math.random() * this.getHeight());
