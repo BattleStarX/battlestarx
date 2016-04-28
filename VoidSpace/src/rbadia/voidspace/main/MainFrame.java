@@ -145,7 +145,7 @@ public class MainFrame extends JFrame {
 			shipsLabel = new JLabel("Ships Left: ");
 			shipsValueLabel = new JLabel("3");
 			destroyedLabel = new JLabel("Asteroids Destroyed: ");
-			destroyedValueLabel = new JLabel("0");
+			destroyedValueLabel = new JLabel("0 / 5");
 			destroyedEnemyShipsLabel = new JLabel ("Enemy Ships Destroyed: ");
 			destroyedEnemyShipsValueLabel = new JLabel("0");
 			levelLabel = new JLabel("Level: ");
@@ -163,7 +163,7 @@ public class MainFrame extends JFrame {
 			jContentPane.add(levelLabel, gridBagConstraints5);
 			jContentPane.add(levelValueLabel, gridBagConstraints6);
 			
-			jContentPane.add(scorePointsLabel, gridBagConstraints8);//TODO fix
+			jContentPane.add(scorePointsLabel, gridBagConstraints8);
 			jContentPane.add(scorePointsValueLabel, gridBagConstraints7);
 			jContentPane.add(destroyedEnemyShipsLabel, gridBagConstraints9);
 			jContentPane.add(destroyedEnemyShipsValueLabel, gridBagConstraints10);

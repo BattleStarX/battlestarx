@@ -11,8 +11,7 @@ import rbadia.voidspace.model.Asteroid;
 import rbadia.voidspace.model.Bullet;
 import rbadia.voidspace.model.Ship;
 import rbadia.voidspace.sounds.SoundManager;
-import rbadia.voidspace.model.EnemyShip;//TODO
-
+import rbadia.voidspace.model.EnemyShip;
 
 /**
  * Handles general game logic and status.
@@ -25,6 +24,7 @@ public class GameLogic {
 	private Ship ship;
 	private Asteroid asteroid;
 	private List<Bullet> bullets;
+	private List<Asteroid> asteroids;//TODO
 	private EnemyShip enemyShip;
 
 	/**
@@ -41,7 +41,8 @@ public class GameLogic {
 
 		// init some variables
 		bullets = new ArrayList<Bullet>();
-		soundMan.playIntroMusic();//TODO
+		asteroids = new ArrayList<Asteroid>();//TODO
+		soundMan.playIntroMusic();
 	}
 
 	/**
@@ -67,24 +68,27 @@ public class GameLogic {
 		status.setGameStarting(true);
 		soundMan.stopIntroMusic();
 		soundMan.playDuringMusic();
+		
 		// init game variables
 		bullets = new ArrayList<Bullet>();
-
+		asteroids = new ArrayList<Asteroid>();//TODO
+		
 		status.setShipsLeft(3);
 		status.setGameOver(false);
 		status.setAsteroidsDestroyed(0);
 		status.setNewAsteroid(false);
 		status.setEnemyShipsDestroyed(0);
 		status.setNewEnemyShip(false);
-		status.setCurrentLevel(1);//TODO
-	    status.setAsteroidValue(5);//TODO
+		status.setCurrentLevel(1);
+	    status.setAsteroidValue(5);
 	    status.setScorePoints(0);
 
 		// init the ship and the asteroid
 		newShip(gameScreen);
 		newAsteroid(gameScreen);
-		newEnemyShip(gameScreen);//TODO
-
+		newEnemyShip(gameScreen);
+		generateAsteroids(3);//TODO
+		
 		// prepare game screen
 		gameScreen.doNewGame();
 
@@ -110,10 +114,10 @@ public class GameLogic {
 			}
 		}
 		
-		//TODO
 		// check level over conditions
-		if(status.isLevelOver())
-			levelOver();
+		if(status.isLevelOver())//TODO
+			// update level
+			status.updateCurrentLevel();
 	}
 
 	/**
@@ -136,15 +140,6 @@ public class GameLogic {
 		});
 		timer.setRepeats(false);
 		timer.start();
-	}
-	
-	public void levelOver(){
-		// update current level
-		status.updateCurrentLevel();
-		// reset value of asteroids destroyed
-		status.setAsteroidsDestroyed(0);
-		// set new target variables for next level
-		status.setLevelVariables();
 	}
 	
 	/**
@@ -190,7 +185,7 @@ public class GameLogic {
 	/**
 	 * Create a new enemy ship.
 	 */
-	public EnemyShip newEnemyShip(GameScreen screen){//TODO
+	public EnemyShip newEnemyShip(GameScreen screen){
 		this.enemyShip = new EnemyShip(screen);
 		return enemyShip;
 	}
@@ -215,7 +210,7 @@ public class GameLogic {
 	 * Returns the enemy ship.
 	 * @return the enemy ship
 	 */
-	public EnemyShip getEnemyShip () {//TODO
+	public EnemyShip getEnemyShip () {
 		return enemyShip;
 	}
 
@@ -225,5 +220,32 @@ public class GameLogic {
 	 */
 	public List<Bullet> getBullets() {
 		return bullets;
+	}
+	
+	/**
+	 * Returns the list of asteroids
+	 * @return the list of asteroids
+	 */
+	public List<Asteroid> getAsteroids() {//TODO
+		return asteroids;
+	}
+	
+	/**
+	 * Generates the asteroids and puts them in the list
+	 * @param number of asteroids to generate
+	 */
+	public void generateAsteroids(int n){//TODO
+		for(int i=0; i<n; i++){
+			addAsteroid(gameScreen);
+		}
+	}
+	
+	/**
+	 * Adds an asteroid to the screen and to the list
+	 * @param screen
+	 */
+	public void addAsteroid(GameScreen screen){//TODO
+		this.asteroid = newAsteroid(screen);
+		asteroids.add(asteroid);
 	}
 }

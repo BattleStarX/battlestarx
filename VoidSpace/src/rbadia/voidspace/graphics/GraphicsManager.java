@@ -23,7 +23,6 @@ public class GraphicsManager {
 	private BufferedImage asteroidImg;
 	private BufferedImage asteroidExplosionImg;
 	private BufferedImage shipExplosionImg;
-
 	private BufferedImage enemyShipImg;
 
 	/**
@@ -37,11 +36,7 @@ public class GraphicsManager {
 			this.asteroidExplosionImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/asteroidExplosion.png"));
 			this.shipExplosionImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/shipExplosion.png"));
 			this.bulletImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/bullet.png"));
-
 			this.enemyShipImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/enemyShip.png"));
-
-
-
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "The graphic files are either corrupt or missing.",
 					"VoidSpace - Fatal Error", JOptionPane.ERROR_MESSAGE);
@@ -80,8 +75,6 @@ public class GraphicsManager {
 		g2d.drawImage(asteroidImg, asteroid.x, asteroid.y, observer);
 	}
 
-
-	//----------------------------------------------------------------------------------------
 	/**
 	 * Draws a enemyShip image to the specified graphics canvas.
 	 * @param enemyShip the enemyShip to draw
@@ -91,10 +84,6 @@ public class GraphicsManager {
 	public void drawEnemyShip(EnemyShip enemyShip, Graphics2D g2d, ImageObserver observer) {
 		g2d.drawImage(enemyShipImg, enemyShip.x, enemyShip.y, observer);
 	}
-	//----------------------------------------------------------------------------------------
-
-
-
 
 	/**
 	 * Draws a ship explosion image to the specified graphics canvas.
