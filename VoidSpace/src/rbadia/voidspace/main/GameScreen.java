@@ -33,7 +33,7 @@ public class GameScreen extends JPanel {
 
 	private static final int NEW_SHIP_DELAY = 500;
 	private static final int NEW_ASTEROID_DELAY = 500;
-	private static final int NEW_ENEMYSHIP_DELAY = 500;
+	private static final int NEW_ENEMYSHIP_DELAY = 700;
 	private static final int NEW_FINALBOSS_DELAY = 500;
 
 	private long lastShipTime;
@@ -161,11 +161,7 @@ public class GameScreen extends JPanel {
 			}
 			return;
 		}
-
-
-
-
-
+		
 		// if the game is won, draw the "You Win!" message
 		if(status.isGameWin()){
 			// draw the message
@@ -323,10 +319,7 @@ public class GameScreen extends JPanel {
 				gameLogic.fireFinalBossBullet();
 
 			}
-
-
 			//graphicsMan.drawBossExplosion(bossExplosion , g2d, this);
-
 		}
 		
 		/*	if(!status.isNewFinalBoss()){
@@ -410,65 +403,62 @@ public class GameScreen extends JPanel {
 				}
 			}
 		}
-
-		// check ship-enemyShip collisions
-		if(enemyShip.intersects(ship)){
-			// decrease number of ships left
-			status.setShipsLeft(status.getShipsLeft() - 1);
-			status.setEnemyShipsDestroyed(status.getEnemyShipsDestroyed() + 1);
-
-			// "remove" enemyShip
-			enemyShipExplosion = new Rectangle(
-					enemyShip.x,
-					enemyShip.y,
-					enemyShip.width,
-					enemyShip.height);
-			enemyShip.setLocation(-enemyShip.width, -enemyShip.height);
-			status.setNewEnemyShip(true);
-			lastEnemyShipTime = System.currentTimeMillis();
-
-			// "remove" ship
-			shipExplosion = new Rectangle(
-					ship.x,
-					ship.y,
-					ship.width,
-					ship.height);
-			ship.setLocation(this.getWidth() + ship.width, -ship.height);
-			status.setNewShip(true);
-			lastShipTime = System.currentTimeMillis();
-
-			// play ship explosion sound
-			soundMan.playShipExplosionSound();
-			// play enemyShip explosion sound
-			soundMan.playShipExplosionSound();
-		}
-
-		// check bullet-finalBoss collision
+		
+		// check bullet-enemyShip collisions
 		for(int i=0; i<bullets.size(); i++){
 			Bullet bullet = bullets.get(i);
-			if(finalBoss.intersects(bullet)){
-				status.setBossLife(status.getBossLife() - 1);
-				soundMan.playShipExplosionSound();
-				//status.setFinalBossDestroyed(true);
+			if(enemyShip.intersects(bullet)){
+				// increase enemyShips destroyed count
+				status.setEnemyShipsDestroyed(status.getEnemyShipsDestroyed() + 1);
+				status.setScorePoints(status.getScorePoints() + 100);
 
-				// "remove" asteroid
-				//				bossExplosion = new Rectangle(
-				//						finalBoss.x,
-				//						finalBoss.y,
-				//						finalBoss.width,
-				//						finalBoss.height);
-				//				finalBoss.setLocation(-finalBoss.width, -finalBoss.height);
-				//				status.setNewFinalBoss(true);
-				//				// play asteroid explosion sound
-				//				soundMan.playShipExplosionSound();
-				//				soundMan.stopBossBulletSound();
-				//				soundMan.stopDuringMusic();
-				//				soundMan.stopTensionMusic();
-				//				soundMan.playVictorySound();
+				// "remove" enemyShip
+				enemyShipExplosion = new Rectangle(
+						enemyShip.x,
+						enemyShip.y,
+						enemyShip.width,
+						enemyShip.height);
+				enemyShip.setLocation(-enemyShip.width, -enemyShip.height);
+				status.setNewEnemyShip(true);
+				lastEnemyShipTime = System.currentTimeMillis();
+
+				// play enemyShip explosion sound
+				soundMan.playShipExplosionSound();
+
 				// remove bullet
 				bullets.remove(i);
 				break;
+			}
+		}
 
+		// check bullet-finalBoss collision
+		if(status.getCurrentLevel() == 9){
+			for(int i=0; i<bullets.size(); i++){
+				Bullet bullet = bullets.get(i);
+				if(finalBoss.intersects(bullet)){
+					status.setBossLife(status.getBossLife() - 1);
+					soundMan.playShipExplosionSound();
+					//status.setFinalBossDestroyed(true);
+
+					// "remove" asteroid
+					//				bossExplosion = new Rectangle(
+					//						finalBoss.x,
+					//						finalBoss.y,
+					//						finalBoss.width,
+					//						finalBoss.height);
+					//				finalBoss.setLocation(-finalBoss.width, -finalBoss.height);
+					//				status.setNewFinalBoss(true);
+					//				// play asteroid explosion sound
+					//				soundMan.playShipExplosionSound();
+					//				soundMan.stopBossBulletSound();
+					//				soundMan.stopDuringMusic();
+					//				soundMan.stopTensionMusic();
+					//				soundMan.playVictorySound();
+					// remove bullet
+					bullets.remove(i);
+					break;
+
+				}
 			}
 		}
 
@@ -556,6 +546,7 @@ public class GameScreen extends JPanel {
 				soundMan.playAsteroidExplosionSound();
 			}
 		}
+		
 		// check bossBullet-ship collisions
 		for(int i=0; i<bossBullet.size(); i++){
 			Bullet bossBullets = bossBullet.get(i);

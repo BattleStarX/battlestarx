@@ -164,7 +164,7 @@ public class MainFrame extends JFrame {
 			gridBagConstraints.gridwidth = 4;
 			
 			shipsLabel = new JLabel("Ships Left: ");
-			shipsValueLabel = new JLabel("3");
+			shipsValueLabel = new JLabel("9");
 			destroyedLabel = new JLabel("Asteroids Destroyed: ");
 			destroyedValueLabel = new JLabel("0 / 5");
 			destroyedEnemyShipsLabel = new JLabel ("Enemy Ships Destroyed: ");

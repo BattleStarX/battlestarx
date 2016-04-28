@@ -72,6 +72,7 @@ public class GameLogic {
 		status.setGameStarting(true);
 		soundMan.stopIntroMusic();
 		soundMan.playDuringMusic();
+		
 		// init game variables
 		bullets = new ArrayList<Bullet>();
 		asteroids = new ArrayList<Asteroid>();
@@ -79,16 +80,16 @@ public class GameLogic {
 
 		status.setShipsLeft(9);
 		status.setGameOver(false);
-		status.setAsteroidsDestroyed(0);
+		status.setAsteroidsDestroyed(4);
 		status.setNewAsteroid(false);
 		status.setEnemyShipsDestroyed(0);
 		status.setNewEnemyShip(false);
 		status.setCurrentLevel(8);
 		status.setAsteroidValue(5);
 		status.setScorePoints(0);
-		status.setBossLife(5);//TODO
-
-		//status.setShowFinalBoss(true);//TODO
+		status.setBossLife(5);
+		status.setNewFinalBoss(false);
+		status.setShowFinalBoss(false);
 
 		// init the ship and the asteroid
 		newShip(gameScreen);
@@ -134,14 +135,14 @@ public class GameLogic {
 		// check level over conditions
 		if(status.isLevelOver()){
 			// update level
-			if(status.getCurrentLevel() < 9){
-				status.updateCurrentLevel();
-				generateAsteroids(1*(status.getCurrentLevel()-1));
-			}
-			else{
+			if(status.getCurrentLevel() == 9){
 				status.setShowFinalBoss(true);
 				soundMan.stopDuringMusic();
 				soundMan.playTensionMusic();
+			}
+			else {
+				status.updateCurrentLevel();
+				generateAsteroids(1*(status.getCurrentLevel()-1));	
 			}
 		}
 	}
