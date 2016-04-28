@@ -12,6 +12,7 @@ public class Ship extends Rectangle {
 	private static final long serialVersionUID = 1L;
 	
 	public static final int DEFAULT_SPEED = 5;
+	public static final int TURBO_SPEED = 15;
 	private static final int Y_OFFSET = 25; // initial y distance of the ship from the bottom of the screen 
 	
 	private int shipWidth = 25;
@@ -68,4 +69,11 @@ public class Ship extends Rectangle {
 		return DEFAULT_SPEED;
 	}
 	
+	/**
+	 * Returns the turbo ship speed.
+	 * @return the turbo ship speed
+	 */
+	public int getTurboSpeed(){
+		return TURBO_SPEED;
+	}
 }

@@ -89,7 +89,7 @@ public class GameLogic {
 		newEnemyShip(gameScreen);
 		
 		// start with 3 asteroids
-		generateAsteroids(3);
+		generateAsteroids(4);
 
 		// prepare game screen
 		gameScreen.doNewGame();
@@ -116,9 +116,11 @@ public class GameLogic {
 			}
 		}
 		// check level over conditions
-		if(status.isLevelOver())
+		if(status.isLevelOver()){
 			// update level
 			status.updateCurrentLevel();
+			generateAsteroids(1*(status.getCurrentLevel()-1));
+		}
 	}
 
 	/**

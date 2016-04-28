@@ -176,7 +176,12 @@ public class InputHandler implements KeyListener{
 		case KeyEvent.VK_SHIFT:
 			this.shiftIsPressed = false;
 			Ship ship = gameLogic.getShip(); 
-			ship.setSpeed(ship.getDefaultSpeed());
+			if (ship.getSpeed() == ship.getDefaultSpeed()){
+				ship.setSpeed(ship.getTurboSpeed());
+			}
+			else{
+				ship.setSpeed(ship.getDefaultSpeed());
+			}
 			break;
 		}
 		e.consume();
