@@ -34,7 +34,7 @@ public class InputHandler implements KeyListener{
 	 */
 	public void handleInput(GameScreen gameScreen){
 		GameStatus status = gameLogic.getStatus();
-		if(!status.isGameOver() && !status.isNewShip() && !status.isGameStarting()){
+		if(!status.isGameOver() && !status.isGameWin() && !status.isNewShip() && !status.isGameStarting()){
 			// fire bullet if space is pressed
 			if(spaceIsPressed){
 				// fire only up to 5 bullets per second

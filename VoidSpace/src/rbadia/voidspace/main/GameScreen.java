@@ -33,13 +33,17 @@ public class GameScreen extends JPanel {
 
 	private static final int NEW_SHIP_DELAY = 500;
 	private static final int NEW_ASTEROID_DELAY = 500;
-	private static final int NEW_ENEMYSHIP_DELAY = 500;//TODO
+	private static final int NEW_ENEMYSHIP_DELAY = 500;
+	private static final int NEW_FINALBOSS_DELAY = 500;
+
+
 
 
 
 	private long lastShipTime;
 	private long lastAsteroidTime;
 	private long lastEnemyShipTime;//TODO
+	private long lastFinalBossTime;
 
 	private Rectangle asteroidExplosion;
 	private Rectangle shipExplosion;
@@ -153,11 +157,46 @@ public class GameScreen extends JPanel {
 				graphicsMan.drawShipExplosion(shipExplosion, g2d, this);
 			}
 
+			if((currentTime - lastFinalBossTime) < NEW_FINALBOSS_DELAY){
+				graphicsMan.drawBossExplosion(bossExplosion, g2d, this);
+			}
+			return;
+		}
+
+
+
+
+
+		// if the game is won, draw the "You Win!" message
+		if(status.isGameWin()){
+			// draw the message
+			drawGameWin();
+			//status.setGameStarted(false);
+			//status.setGameStarting(false);
+
+			//long currentTime = System.currentTimeMillis();
+			// draw the explosions until their time passes
+			//			if((currentTime - lastAsteroidTime) < NEW_ASTEROID_DELAY){
+			//				graphicsMan.drawAsteroidExplosion(asteroidExplosion, g2d, this);
+			//			}
+			//
+			//			if((currentTime - lastEnemyShipTime) < NEW_ENEMYSHIP_DELAY){
+			//				graphicsMan.drawShipExplosion(shipExplosion, g2d, this);
+			//			}
+			//
 			//			if((currentTime - lastShipTime) < NEW_SHIP_DELAY){
+			//				graphicsMan.drawShipExplosion(shipExplosion, g2d, this);
+			//			}
+			//			if((currentTime - lastFinalBossTime) < NEW_FINALBOSS_DELAY){
 			//				graphicsMan.drawBossExplosion(bossExplosion, g2d, this);
 			//			}
 			return;
 		}
+
+
+
+
+
 
 		// the game has not started yet
 		if(!status.isGameStarted()){
@@ -269,6 +308,9 @@ public class GameScreen extends JPanel {
 
 			//graphicsMan.drawBossExplosion(bossExplosion , g2d, this);
 
+		}else if (!status.showFinalBoss()){
+			graphicsMan.drawBossExplosion(bossExplosion , g2d, this);
+
 		}
 
 
@@ -363,6 +405,7 @@ public class GameScreen extends JPanel {
 		for(int i=0; i<bullets.size(); i++){
 			Bullet bullet = bullets.get(i);
 			if(finalBoss.intersects(bullet)){
+				status.setFinalBossDestroyed(true);
 				// "remove" asteroid
 				bossExplosion = new Rectangle(
 						finalBoss.x,
@@ -530,6 +573,46 @@ public class GameScreen extends JPanel {
 		g2d.drawString(gameOverStr, strX, strY);
 	}
 
+
+
+
+
+
+
+
+	/**
+	 * Draws the "Game Win" message.
+	 */
+	private void drawGameWin() {
+		String gameWinStr = "YOU WIN!";
+		Font currentFont = biggestFont == null? bigFont : biggestFont;
+		float fontSize = currentFont.getSize2D();
+		bigFont = currentFont.deriveFont(fontSize + 1).deriveFont(Font.ITALIC);
+		FontMetrics fm = g2d.getFontMetrics(bigFont);
+		int strWidth = fm.stringWidth(gameWinStr);
+		if(strWidth > this.getWidth() - 10){
+			biggestFont = currentFont;
+			bigFont = biggestFont;
+			fm = g2d.getFontMetrics(bigFont);
+			strWidth = fm.stringWidth(gameWinStr);
+		}
+		int ascent = fm.getAscent();
+		int strX = (this.getWidth() - strWidth)/2;
+		int strY = (this.getHeight() + ascent)/2;
+		g2d.setFont(bigFont);
+		g2d.setPaint(Color.CYAN);
+		g2d.drawString(gameWinStr, strX, strY);
+	}
+
+
+
+
+
+
+
+
+
+
 	/**
 	 * Draws the initial "Get Ready!" message.
 	 */
@@ -564,7 +647,7 @@ public class GameScreen extends JPanel {
 	private void initialMessage() {
 		String gameTitleStr = "BattleStar X";
 
-		Font currentFont = biggestFont == null? bigFont : biggestFont;
+		Font currentFont = biggestFont == null ? bigFont : biggestFont;
 		float fontSize = currentFont.getSize2D();
 		bigFont = currentFont.deriveFont(fontSize + 1).deriveFont(Font.BOLD).deriveFont(Font.ITALIC);
 		FontMetrics fm = g2d.getFontMetrics(bigFont);
@@ -605,6 +688,14 @@ public class GameScreen extends JPanel {
 	public void doGameOver(){
 		shipsValueLabel.setForeground(new Color(128, 0, 0));
 	}
+	//---------------------------------------------------------------------
+	/**
+	 * Prepare screen for game win.
+	 */
+	public void doGameWin(){
+		shipsValueLabel.setForeground(new Color(128, 0, 0));
+	}
+	//---------------------------------------------------------------------
 
 	/**
 	 * Prepare screen for a new game.

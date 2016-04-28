@@ -8,6 +8,7 @@ public class GameStatus {
 	private boolean gameStarted = false;
 	private boolean gameStarting = false;
 	private boolean gameOver = false;
+	private boolean gameWin = false;
 
 	// status variables
 	private boolean newShip;
@@ -20,7 +21,8 @@ public class GameStatus {
 	private long asteroidsDestroyed = 0;
 	private int shipsLeft;
 	private int scorePoints = 0;
-	private long enemyShipsDestroyed = 0;	
+	private long enemyShipsDestroyed = 0;
+	private boolean finalBossDestroyed = false;
 	private int currentLevel = 1;//TODO
 	
 	// target variables
@@ -29,6 +31,18 @@ public class GameStatus {
 	public GameStatus(){
 
 	}
+	//---------------------------------------------------------------------------------
+	/**
+	 * Indicates if the final boss is destroyed.
+	 * @return if the final boss is destroyed or not
+	 */
+	public synchronized boolean isFinalBossDestroyed() {
+		return finalBossDestroyed;
+	}
+	public synchronized void setFinalBossDestroyed(boolean finalBossDestroyed) {
+		this.finalBossDestroyed = finalBossDestroyed;
+	}
+	//----------------------------------------------------------------------------------
 
 	/**
 	 * Indicates if the game has already started or not.
@@ -65,6 +79,19 @@ public class GameStatus {
 	public synchronized void setGameOver(boolean gameOver) {
 		this.gameOver = gameOver;
 	}
+	//------------------------------------------------------------------------------------------
+	/**
+	 * Indicates if the game has ended and the "You Win" message is displaying.
+	 * @return if the game has ended and the "You Win" message is displaying.
+	 */
+	public synchronized boolean isGameWin() {
+		return gameWin;
+	}
+
+	public synchronized void setGameWin(boolean gameWin) {
+		this.gameWin = gameWin;
+	}
+	//------------------------------------------------------------------------------------------
 
 	/**
 	 * Indicates if a new ship should be created/drawn.

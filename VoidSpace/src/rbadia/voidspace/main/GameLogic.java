@@ -87,7 +87,7 @@ public class GameLogic {
 		status.setAsteroidValue(5);//TODO
 		status.setScorePoints(0);
 		//**********************************************************************************************
-		//status.setShowFinalBoss(true);
+		status.setShowFinalBoss(true);
 
 		// init the ship and the asteroid
 		newShip(gameScreen);
@@ -108,7 +108,6 @@ public class GameLogic {
 		timer.setRepeats(false);
 		timer.start();
 	}
-
 	/**
 	 * Check game or level ending conditions.
 	 */
@@ -117,9 +116,16 @@ public class GameLogic {
 		if(!status.isGameOver() && status.isGameStarted()){
 			if(status.getShipsLeft() == 0){
 				gameOver();
+			} else if(status.isFinalBossDestroyed()){
+				gameWin();
 			}
 		}
-
+		/*// check game won conditions
+		if (!status.isGameWin() && status.isGameStarted()){
+			if(status.isFinalBossDestroyed()){
+				gameWin();
+			}
+		}*/
 		//TODO
 		// check level over conditions
 		if(status.isLevelOver())
@@ -149,6 +155,35 @@ public class GameLogic {
 		timer.start();
 	}
 
+
+
+	//----****************************************************************************************************
+	/**
+	 * Actions to take when the game is won.
+	 */
+	public void gameWin(){
+		status.setGameStarted(false);
+		status.setGameWin(true);
+		soundMan.stopDuringMusic();
+		soundMan.stopTensionMusic();
+		soundMan.playVictorySound();
+		gameScreen.doGameWin();
+
+		// delay to display "You Win!" message for 3 seconds
+		Timer timer = new Timer(9000, new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				status.setGameWin(false);
+				soundMan.playIntroMusic();
+			}
+		});
+		timer.setRepeats(false);
+		timer.start();
+	}
+	//----****************************************************************************************************
+
+
+
+
 	public void levelOver(){
 		// update current level
 		status.updateCurrentLevel();
@@ -156,11 +191,11 @@ public class GameLogic {
 		status.setAsteroidsDestroyed(0);
 		// set new target variables for next level
 		status.setLevelVariables();
-//******************************************************************************************************
-		status.setShowFinalBoss(true);
-		soundMan.stopDuringMusic();
-		soundMan.playTensionMusic();
-		
+		//******************************************************************************************************
+		//		status.setShowFinalBoss(true);
+		//		soundMan.stopDuringMusic();
+		//		soundMan.playTensionMusic();
+
 
 	}
 
@@ -262,12 +297,10 @@ public class GameLogic {
 	 */
 	public FinalBoss newFinalBoss(GameScreen screen){
 		this.finalBoss = new FinalBoss(screen);
-//		soundMan.playTensionMusic();
-//		soundMan.stopDuringMusic();
+		//		soundMan.playTensionMusic();
+		//		soundMan.stopDuringMusic();
 		return finalBoss;
 	}
-
-
 	/**
 	 * Returns the finalBoss.
 	 * @return the finalBoss
@@ -275,8 +308,6 @@ public class GameLogic {
 	public FinalBoss getFinalBoss() {
 		return finalBoss;
 	}
-
-
 	/**
 	 * Returns the list of bullets.
 	 * @return the list of bullets
