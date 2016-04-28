@@ -73,7 +73,7 @@ public class GameLogic {
 		bullets = new ArrayList<Bullet>();
 		asteroids = new ArrayList<Asteroid>();
 
-		status.setShipsLeft(5);
+		status.setShipsLeft(9);
 		status.setGameOver(false);
 		status.setAsteroidsDestroyed(0);
 		status.setNewAsteroid(false);
@@ -89,7 +89,7 @@ public class GameLogic {
 		newEnemyShip(gameScreen);
 		
 		// start with 3 asteroids
-		generateAsteroids(4);
+		generateAsteroids(1);
 
 		// prepare game screen
 		gameScreen.doNewGame();
@@ -118,8 +118,10 @@ public class GameLogic {
 		// check level over conditions
 		if(status.isLevelOver()){
 			// update level
-			status.updateCurrentLevel();
-			generateAsteroids(1*(status.getCurrentLevel()-1));
+			if(status.getCurrentLevel() != 9){
+				status.updateCurrentLevel();
+				generateAsteroids(1*(status.getCurrentLevel()-1));
+			}
 		}
 	}
 
@@ -248,6 +250,7 @@ public class GameLogic {
 	 */
 	public void addAsteroid(GameScreen screen){
 		this.asteroid = newAsteroid(screen);
+		this.asteroid.generateDirection();
 		asteroids.add(asteroid);
 	}
 }

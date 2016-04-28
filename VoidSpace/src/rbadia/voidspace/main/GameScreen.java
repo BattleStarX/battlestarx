@@ -462,7 +462,7 @@ public class GameScreen extends JPanel {
 		destroyedEnemyValueLabel.setText(Long.toString(status.getEnemyShipsDestroyed()));
 		
 		// update level label
-		levelValueLabel.setText(Integer.toString(status.getCurrentLevel()));
+		levelValueLabel.setText(Integer.toString(status.getCurrentLevel()) + " / 9");
 	}
 
 	/**
@@ -508,7 +508,7 @@ public class GameScreen extends JPanel {
 	 * Draws the specified number of stars randomly on the game screen.
 	 * @param numberOfStars the number of stars to draw
 	 */
-	private void drawStars(int numberOfStars) {//TODO
+	private void drawStars(int numberOfStars) {
 		g2d.setColor(Color.LIGHT_GRAY);
 		for(int i=0; i<numberOfStars; i++){
 			int x = (int)(Math.random() * this.getWidth());
@@ -579,7 +579,7 @@ public class GameScreen extends JPanel {
 		// set labels' text
 		shipsValueLabel.setForeground(Color.BLACK);
 		shipsValueLabel.setText(Integer.toString(status.getShipsLeft()));
-		destroyedValueLabel.setText(Long.toString(status.getAsteroidsDestroyed()));
+		destroyedValueLabel.setText(Long.toString(status.getAsteroidsDestroyed()) + "/ 9");
 		destroyedValueLabel.setText(Long.toString(status.getAsteroidsDestroyed()) + " / " + asteroidsToDestroyValue);
 		levelValueLabel.setText(Integer.toString(status.getCurrentLevel()));
 		scorePointsValueLabel.setText(Long.toString(status.getScorePoints()));

@@ -170,7 +170,7 @@ public class MainFrame extends JFrame {
 			destroyedEnemyShipsLabel = new JLabel ("Enemy Ships Destroyed: ");
 			destroyedEnemyShipsValueLabel = new JLabel("0");
 			levelLabel = new JLabel("Level: ");
-			levelValueLabel = new JLabel("1");
+			levelValueLabel = new JLabel("1 / 9");
 			scorePointsLabel = new JLabel("Total Score: ");
 			scorePointsValueLabel = new JLabel("0");
 			
