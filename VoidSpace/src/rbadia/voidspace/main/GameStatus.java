@@ -86,7 +86,7 @@ public class GameStatus {
 	public synchronized void setNewAsteroid(boolean newAsteroid) {
 		this.newAsteroid = newAsteroid;
 	}
-
+	
 	/**
 	 * Returns the number of asteroid destroyed. 
 	 * @return the number of asteroid destroyed

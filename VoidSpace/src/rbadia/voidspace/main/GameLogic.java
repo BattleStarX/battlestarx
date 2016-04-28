@@ -24,7 +24,7 @@ public class GameLogic {
 	private Ship ship;
 	private Asteroid asteroid;
 	private List<Bullet> bullets;
-	private List<Asteroid> asteroids;//TODO
+	private List<Asteroid> asteroids;
 	private EnemyShip enemyShip;
 
 	/**
@@ -41,7 +41,7 @@ public class GameLogic {
 
 		// init some variables
 		bullets = new ArrayList<Bullet>();
-		asteroids = new ArrayList<Asteroid>();//TODO
+		asteroids = new ArrayList<Asteroid>();
 		soundMan.playIntroMusic();
 	}
 
@@ -68,11 +68,11 @@ public class GameLogic {
 		status.setGameStarting(true);
 		soundMan.stopIntroMusic();
 		soundMan.playDuringMusic();
-		
+
 		// init game variables
 		bullets = new ArrayList<Bullet>();
-		asteroids = new ArrayList<Asteroid>();//TODO
-		
+		asteroids = new ArrayList<Asteroid>();
+
 		status.setShipsLeft(3);
 		status.setGameOver(false);
 		status.setAsteroidsDestroyed(0);
@@ -80,15 +80,17 @@ public class GameLogic {
 		status.setEnemyShipsDestroyed(0);
 		status.setNewEnemyShip(false);
 		status.setCurrentLevel(1);
-	    status.setAsteroidValue(5);
-	    status.setScorePoints(0);
+		status.setAsteroidValue(5);
+		status.setScorePoints(0);
 
-		// init the ship and the asteroid
+		// init the ship and the asteroids
 		newShip(gameScreen);
 		newAsteroid(gameScreen);
 		newEnemyShip(gameScreen);
-		generateAsteroids(3);//TODO
 		
+		// start with 3 asteroids
+		generateAsteroids(3);
+
 		// prepare game screen
 		gameScreen.doNewGame();
 
@@ -113,9 +115,8 @@ public class GameLogic {
 				gameOver();
 			}
 		}
-		
 		// check level over conditions
-		if(status.isLevelOver())//TODO
+		if(status.isLevelOver())
 			// update level
 			status.updateCurrentLevel();
 	}
@@ -135,13 +136,12 @@ public class GameLogic {
 			public void actionPerformed(ActionEvent e) {
 				status.setGameOver(false);
 				soundMan.playIntroMusic();
-
 			}
 		});
 		timer.setRepeats(false);
 		timer.start();
 	}
-	
+
 	/**
 	 * Fire a bullet from ship.
 	 */
@@ -221,30 +221,30 @@ public class GameLogic {
 	public List<Bullet> getBullets() {
 		return bullets;
 	}
-	
+
 	/**
 	 * Returns the list of asteroids
 	 * @return the list of asteroids
 	 */
-	public List<Asteroid> getAsteroids() {//TODO
+	public List<Asteroid> getAsteroids() {
 		return asteroids;
 	}
-	
+
 	/**
 	 * Generates the asteroids and puts them in the list
 	 * @param number of asteroids to generate
 	 */
-	public void generateAsteroids(int n){//TODO
+	public void generateAsteroids(int n){
 		for(int i=0; i<n; i++){
 			addAsteroid(gameScreen);
 		}
 	}
-	
+
 	/**
 	 * Adds an asteroid to the screen and to the list
 	 * @param screen
 	 */
-	public void addAsteroid(GameScreen screen){//TODO
+	public void addAsteroid(GameScreen screen){
 		this.asteroid = newAsteroid(screen);
 		asteroids.add(asteroid);
 	}

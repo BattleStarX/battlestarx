@@ -16,6 +16,8 @@ public class Asteroid extends Rectangle {
 	private int speed = DEFAULT_SPEED;
 	private int direction = DEFAULT_DIRECTION; 
 
+	private boolean newAsteroids = false;
+	
 	private Random rand = new Random();
 	
 	/**
@@ -72,5 +74,13 @@ public class Asteroid extends Rectangle {
 		Random generator = new Random();
 		int random = generator.nextInt(3)-1;
 		setDirection(this.getSpeed()*random);
+	}
+	
+	public synchronized boolean areNewAsteroids() {//TODO
+		return newAsteroids;
+	}
+	
+	public synchronized void setNewAsteroids(boolean newAsteroids) {//TODO
+		this.newAsteroids = newAsteroids;
 	}
 }
