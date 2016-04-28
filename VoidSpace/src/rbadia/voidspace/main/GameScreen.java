@@ -38,7 +38,7 @@ public class GameScreen extends JPanel {
 
 	private long lastShipTime;
 	private long lastAsteroidTime;
-	private long lastEnemyShipTime;//TODO
+	private long lastEnemyShipTime;
 	private long lastFinalBossTime;
 
 	private Rectangle asteroidExplosion;
@@ -332,7 +332,7 @@ public class GameScreen extends JPanel {
 		/*	if(!status.isNewFinalBoss()){
 			// draw the asteroid until it reaches the bottom of the screen
 			if(finalBoss.getY() + finalBoss.getSpeed() < this.getHeight()){
-				//finalBoss.translate(finalBoss.getDirection(), finalBoss.getSpeed());//TODO
+				//finalBoss.translate(finalBoss.getDirection(), finalBoss.getSpeed());
 				graphicsMan.drawFinalBoss(finalBoss, g2d, this);
 			}
 			else{

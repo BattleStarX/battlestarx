@@ -11,8 +11,8 @@ import rbadia.voidspace.model.Asteroid;
 import rbadia.voidspace.model.Bullet;
 import rbadia.voidspace.model.Ship;
 import rbadia.voidspace.sounds.SoundManager;
-import rbadia.voidspace.model.EnemyShip;//TODO
-import rbadia.voidspace.model.FinalBoss;;
+import rbadia.voidspace.model.EnemyShip;
+import rbadia.voidspace.model.FinalBoss;
 
 /**
  * Handles general game logic and status.
@@ -83,7 +83,7 @@ public class GameLogic {
 		status.setNewAsteroid(false);
 		status.setEnemyShipsDestroyed(0);
 		status.setNewEnemyShip(false);
-		status.setCurrentLevel(1);
+		status.setCurrentLevel(8);
 		status.setAsteroidValue(5);
 		status.setScorePoints(0);
 		status.setBossLife(5);//TODO
@@ -93,7 +93,7 @@ public class GameLogic {
 		// init the ship and the asteroid
 		newShip(gameScreen);
 		newAsteroid(gameScreen);
-		newEnemyShip(gameScreen);//TODO
+		newEnemyShip(gameScreen);
 		newFinalBoss(gameScreen);
 
 		// start with 3 asteroids
@@ -134,9 +134,14 @@ public class GameLogic {
 		// check level over conditions
 		if(status.isLevelOver()){
 			// update level
-			if(status.getCurrentLevel() != 9){
+			if(status.getCurrentLevel() < 9){
 				status.updateCurrentLevel();
 				generateAsteroids(1*(status.getCurrentLevel()-1));
+			}
+			else{
+				status.setShowFinalBoss(true);
+				soundMan.stopDuringMusic();
+				soundMan.playTensionMusic();
 			}
 		}
 	}
@@ -184,12 +189,7 @@ public class GameLogic {
 		timer.setRepeats(false);
 		timer.start();
 	}
-
-	/*
-				status.setShowFinalBoss(true);
-				soundMan.stopDuringMusic();
-				soundMan.playTensionMusic();
-*///TODO
+	
 	/**
 	 * Fire a bullet from ship.
 	 */
