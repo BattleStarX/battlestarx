@@ -138,6 +138,7 @@ public class GameLogic {
 			}
 			else{
 				generateAsteroids(1 * (status.getCurrentLevel() - 1));
+				soundMan.playPowerUpSound();
 			}
 		}
 	}
