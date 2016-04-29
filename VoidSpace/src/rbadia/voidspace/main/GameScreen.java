@@ -34,7 +34,7 @@ public class GameScreen extends JPanel {
 
 	private static final int NEW_SHIP_DELAY = 500;
 	private static final int NEW_ASTEROID_DELAY = 500;
-	private static final int NEW_ENEMYSHIP_DELAY = 700;
+	private static final int NEW_ENEMYSHIP_DELAY = 600;
 	private static final int NEW_FINALBOSS_DELAY = 500;
 
 	private long lastShipTime;
@@ -167,6 +167,24 @@ public class GameScreen extends JPanel {
 		if (status.isGameWin()) {
 			// draw the message
 			drawGameWin();
+			
+			long currentTime = System.currentTimeMillis();
+			// draw the explosions until their time passes
+			if ((currentTime - lastAsteroidTime) < NEW_ASTEROID_DELAY) {
+				graphicsMan.drawAsteroidExplosion(asteroidExplosion, g2d, this);
+			}
+
+			if ((currentTime - lastEnemyShipTime) < NEW_ENEMYSHIP_DELAY) {
+				graphicsMan.drawShipExplosion(shipExplosion, g2d, this);
+			}
+
+			if ((currentTime - lastShipTime) < NEW_SHIP_DELAY) {
+				graphicsMan.drawShipExplosion(shipExplosion, g2d, this);
+			}
+
+			if ((currentTime - lastFinalBossTime) < NEW_FINALBOSS_DELAY) {
+				graphicsMan.drawBossExplosion(bossExplosion, g2d, this);
+			}
 			return;
 		}
 
@@ -205,6 +223,7 @@ public class GameScreen extends JPanel {
 		// draw enemy ship
 		if (!status.isNewEnemyShip()) {
 			// draw the enemy ship until it reaches the bottom of the screen
+			enemyShip.setSpeed(status.getCurrentLevel()+1);
 			if (enemyShip.getY() + enemyShip.getSpeed() < this.getHeight()) {
 				enemyShip.translate(0, enemyShip.getSpeed());
 				graphicsMan.drawEnemyShip(enemyShip, g2d, this);
@@ -462,7 +481,7 @@ public class GameScreen extends JPanel {
 	 */
 	private void drawGameWin() {
 
-		String gameWinStr = "You Win!";
+		String gameWinStr = "YOU WIN!";
 		g2d.setFont(originalFont.deriveFont(originalFont.getSize2D() + 75).deriveFont(Font.BOLD));
 		FontMetrics fm = g2d.getFontMetrics();
 		int ascent = fm.getAscent();
@@ -471,6 +490,22 @@ public class GameScreen extends JPanel {
 		int strY = (this.getHeight() + ascent) / 2;
 		g2d.setPaint(Color.CYAN);
 		g2d.drawString(gameWinStr, strX, strY);
+		
+		g2d.setFont(originalFont);
+		fm = g2d.getFontMetrics();
+		String newGameStr = "Press <Space> to Start a New Game.";
+		strWidth = fm.stringWidth(newGameStr);
+		strX = (this.getWidth() - strWidth) / 2;
+		strY = (this.getHeight() + fm.getAscent()) / 2 + ascent + 16;
+		g2d.setPaint(Color.WHITE);
+		g2d.drawString(newGameStr, strX, strY);
+		
+		fm = g2d.getFontMetrics();
+		String exitGameStr = "Press <Esc> to Exit the Game.";
+		strWidth = fm.stringWidth(exitGameStr);
+		strX = (this.getWidth() - strWidth) / 2;
+		strY = strY + 16;
+		g2d.drawString(exitGameStr, strX, strY);
 	}
 
 	/**

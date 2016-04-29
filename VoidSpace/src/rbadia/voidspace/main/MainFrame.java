@@ -72,19 +72,12 @@ public class MainFrame extends JFrame {
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 
-			GridBagConstraints gridBagConstraints12 = new GridBagConstraints();
-			gridBagConstraints12.insets = new Insets(0, 0, 0, 0);
-			gridBagConstraints12.gridy = 5;
-			gridBagConstraints12.anchor = GridBagConstraints.EAST;
-			gridBagConstraints12.weightx = 1.0D;
-			gridBagConstraints12.gridx = 0;
-
 			GridBagConstraints gridBagConstraints11 = new GridBagConstraints();//
 			gridBagConstraints11.insets = new Insets(0, 0, 0, 0);
-			gridBagConstraints11.gridy = 4;
+			gridBagConstraints11.gridy = 3;
 			gridBagConstraints11.anchor = GridBagConstraints.EAST;
 			gridBagConstraints11.weightx = 1.0D;
-			gridBagConstraints11.gridx = 0;
+			gridBagConstraints11.gridx = 2;
 
 			GridBagConstraints gridBagConstraints10 = new GridBagConstraints();
 			gridBagConstraints10.insets = new Insets(0, 0, 0, 0);

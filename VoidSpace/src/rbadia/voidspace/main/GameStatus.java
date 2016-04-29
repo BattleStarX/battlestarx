@@ -208,7 +208,7 @@ public class GameStatus {
 	public synchronized void updateCurrentLevel() {
 		setCurrentLevel(this.getCurrentLevel() + 1);
 		setShipsLeft(this.getShipsLeft() + 1);
-		setAsteroidValue(this.getAsteroidsValue() + 5);
+		setAsteroidValue(this.getAsteroidsValue() + 5*this.getCurrentLevel());
 		this.setLevelOver(false);
 	}
 

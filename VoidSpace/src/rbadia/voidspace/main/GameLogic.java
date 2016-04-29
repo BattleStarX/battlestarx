@@ -167,7 +167,7 @@ public class GameLogic {
 	/**
 	 * Actions to take when the game is won.
 	 */
-	public void gameWin() {//TODO
+	public void gameWin() {
 		status.setGameStarted(false);
 		status.setGameWin(true);
 		soundMan.stopDuringMusic();
