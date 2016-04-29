@@ -132,10 +132,10 @@ public class GameLogic {
 			if(status.getCurrentLevel() == 9){
 				status.setShowFinalBoss(true);
 				soundMan.stopDuringMusic();
-				//soundMan.playTensionMusic();
 			}
 			else {
 				status.updateCurrentLevel();
+				soundMan.playTensionMusic();
 				generateAsteroids(1*(status.getCurrentLevel()-1));	
 			}
 		}

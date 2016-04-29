@@ -52,7 +52,7 @@ public class MainFrame extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(520, 500);
+		this.setSize(520, 505);
 		this.setContentPane(getJContentPane());
 		this.setTitle("BattleStar X");
 		//		this.setResizable(false);

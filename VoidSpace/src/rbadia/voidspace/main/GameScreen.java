@@ -316,11 +316,12 @@ public class GameScreen extends JPanel {
 				status.setGoRight(true);
 			}
 			if(finalBoss.getX()%41 == 0) {
-				soundMan.playTensionMusic();
+				
 
 				gameLogic.fireFinalBossBullet();
 
 			}
+			
 			//graphicsMan.drawBossExplosion(bossExplosion , g2d, this);
 		}
 		
