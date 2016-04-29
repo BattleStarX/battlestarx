@@ -1,3 +1,12 @@
+/**
+ * By:
+ * Albert Morales
+ * Roberto Madera
+ * 
+ * ICOM 4015 030
+ * Project 2
+ */
+
 package rbadia.voidspace.main;
 
 import javax.swing.JFrame;
