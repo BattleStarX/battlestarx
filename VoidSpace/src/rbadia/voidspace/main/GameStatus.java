@@ -15,7 +15,6 @@ public class GameStatus {
 	private boolean newAsteroid;
 	private boolean newEnemyShip;
 	private boolean newFinalBoss;
-	private boolean showFinalBoss;
 	private boolean position;
 	private boolean levelOver = false;
 	private long asteroidsDestroyed = 0;
@@ -23,7 +22,6 @@ public class GameStatus {
 	private int bossLife;
 	private int scorePoints = 0;
 	private long enemyShipsDestroyed = 0;
-	private boolean finalBossDestroyed = false;
 	private int currentLevel = 1;
 
 	// target variables
@@ -31,19 +29,6 @@ public class GameStatus {
 
 	public GameStatus() {
 
-	}
-
-	/**
-	 * Indicates if the final boss is destroyed.
-	 * 
-	 * @return if the final boss is destroyed or not
-	 */
-	public synchronized boolean isFinalBossDestroyed() {
-		return finalBossDestroyed;
-	}
-
-	public synchronized void setFinalBossDestroyed(boolean finalBossDestroyed) {
-		this.finalBossDestroyed = finalBossDestroyed;
 	}
 
 	/**
@@ -198,7 +183,8 @@ public class GameStatus {
 	 */
 	public synchronized boolean isLevelOver() {
 		// check conditions
-		if ((this.getAsteroidsDestroyed() > 1) && (this.getAsteroidsDestroyed() == this.getAsteroidsValue())) {
+		if ((this.getAsteroidsDestroyed() > 1) && (this.getAsteroidsDestroyed() == this.getAsteroidsValue())
+			 && !(this.getCurrentLevel()==9)) {
 			levelOver = true;
 		}
 		return levelOver;
@@ -222,22 +208,9 @@ public class GameStatus {
 	public synchronized void updateCurrentLevel() {
 		setCurrentLevel(this.getCurrentLevel() + 1);
 		setShipsLeft(this.getShipsLeft() + 1);
-		setAsteroidValue(this.getAsteroidsValue() + 3 * getCurrentLevel()); // <<<****************************
+		setAsteroidValue(this.getAsteroidsValue() + 5);
 		this.setLevelOver(false);
 	}
-
-	// ------------------------------------------------------------------------------------------
-
-	// /**
-	// * Increases the level and sets new goals
-	// */
-	// public synchronized void updateCurrentLevel() {
-	// setCurrentLevel(this.getCurrentLevel() + 1);
-	// setAsteroidValue(this.getAsteroidsValue()+3*getCurrentLevel());
-	// this.setLevelOver(false);
-	// }
-
-	// ------------------------------------------------------------------------------------------
 
 	/**
 	 * Returns the score points obtained.
@@ -271,14 +244,6 @@ public class GameStatus {
 
 	public synchronized void setNewFinalBoss(boolean newFinalBoss) {
 		this.newFinalBoss = newFinalBoss;
-	}
-
-	public synchronized boolean showFinalBoss() {
-		return showFinalBoss;
-	}
-
-	public synchronized void setShowFinalBoss(boolean showFinalBoss) {
-		this.showFinalBoss = showFinalBoss;
 	}
 
 	public void setGoRight(boolean position) {

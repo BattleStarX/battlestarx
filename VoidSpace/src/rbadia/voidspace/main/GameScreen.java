@@ -19,7 +19,6 @@ import rbadia.voidspace.model.Asteroid;
 import rbadia.voidspace.model.Bullet;
 import rbadia.voidspace.model.Ship;
 import rbadia.voidspace.sounds.SoundManager;
-
 import rbadia.voidspace.model.EnemyShip;
 import rbadia.voidspace.model.FinalBoss;
 
@@ -112,7 +111,7 @@ public class GameScreen extends JPanel {
 	 */
 	public void updateScreen() {
 		Ship ship = gameLogic.getShip();
-		// Asteroid asteroid = gameLogic.getAsteroid();
+//		Asteroid asteroid = gameLogic.getAsteroid();
 		EnemyShip enemyShip = gameLogic.getEnemyShip();
 		FinalBoss finalBoss = gameLogic.getFinalBoss();
 		List<Bullet> bullets = gameLogic.getBullets();
@@ -251,27 +250,23 @@ public class GameScreen extends JPanel {
 		}
 
 		// draw Final Boss
-		if (status.showFinalBoss()) {
-			if (!status.isNewFinalBoss()) {
+			if (status.isNewFinalBoss()) {
 				graphicsMan.drawFinalBoss(finalBoss, g2d, this);
+				if (status.goRight()) {
+					finalBoss.translate(2, 0);
+				} else {
+					finalBoss.translate(-2, 0);
+				}
+				if (finalBoss.getX() > this.getWidth() - 46) {
+					status.setGoRight(false);
+				} else if (finalBoss.getX() <= 0) {
+					status.setGoRight(true);
+				}
+				if (finalBoss.getX() % 41 == 0) {
+					gameLogic.fireFinalBossBullet();
+				}
+				
 			}
-			if (status.goRight()) {
-				finalBoss.translate(2, 0);
-			} else {
-				finalBoss.translate(-2, 0);
-			}
-			if (finalBoss.getX() > this.getWidth() - 46) {
-				status.setGoRight(false);
-			} else if (finalBoss.getX() <= 0) {
-				status.setGoRight(true);
-			}
-			if (finalBoss.getX() % 41 == 0) {
-
-				gameLogic.fireFinalBossBullet();
-
-			}
-
-		}
 
 		// check bullet-asteroids collisions
 		for (Asteroid a : asteroids) {
@@ -322,17 +317,16 @@ public class GameScreen extends JPanel {
 		}
 
 		// check bullet-finalBoss collision
-		if (status.getCurrentLevel() > 7) {
+		if (status.getCurrentLevel() == 9) {
 			for (int i = 0; i < bullets.size(); i++) {
 				Bullet bullet = bullets.get(i);
 				if (finalBoss.intersects(bullet)) {
 					status.setBossLife(status.getBossLife() - 1);
 					soundMan.playShipExplosionSound();
 					soundMan.playTensionMusic();
-
+					
 					bullets.remove(i);
 					break;
-
 				}
 			}
 		}
@@ -578,9 +572,8 @@ public class GameScreen extends JPanel {
 		// set labels' text
 		shipsValueLabel.setForeground(Color.BLACK);
 		shipsValueLabel.setText(Integer.toString(status.getShipsLeft()));
-		destroyedValueLabel.setText(Long.toString(status.getAsteroidsDestroyed()) + "/ 9");
 		destroyedValueLabel.setText(Long.toString(status.getAsteroidsDestroyed()) + " / " + asteroidsToDestroyValue);
-		levelValueLabel.setText(Integer.toString(status.getCurrentLevel()));
+		levelValueLabel.setText(Integer.toString(status.getCurrentLevel()) + " / 9");
 		scorePointsValueLabel.setText(Long.toString(status.getScorePoints()));
 	}
 
