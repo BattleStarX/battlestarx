@@ -80,11 +80,11 @@ public class GameLogic {
 
 		status.setShipsLeft(9);
 		status.setGameOver(false);
-		status.setAsteroidsDestroyed(4);
+		status.setAsteroidsDestroyed(0);
 		status.setNewAsteroid(false);
 		status.setEnemyShipsDestroyed(0);
 		status.setNewEnemyShip(false);
-		status.setCurrentLevel(8);
+		status.setCurrentLevel(1);
 		status.setAsteroidValue(5);
 		status.setScorePoints(0);
 		status.setBossLife(5);
@@ -125,7 +125,6 @@ public class GameLogic {
 				gameWin();
 			}
 		}
-		
 		// check level over conditions
 		if(status.isLevelOver()){
 			// update level
@@ -135,8 +134,8 @@ public class GameLogic {
 			}
 			else {
 				status.updateCurrentLevel();
-				soundMan.playTensionMusic();
 				generateAsteroids(1*(status.getCurrentLevel()-1));	
+				soundMan.playTensionMusic();
 			}
 		}
 	}
@@ -183,6 +182,7 @@ public class GameLogic {
 		});
 		timer.setRepeats(false);
 		timer.start();
+		gameScreen.doNewGame();
 	}
 	
 	/**
