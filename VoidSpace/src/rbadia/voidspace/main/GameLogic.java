@@ -32,9 +32,11 @@ public class GameLogic {
 
 	/**
 	 * Create a new game logic handler
-	 * @param gameScreen the game screen
+	 * 
+	 * @param gameScreen
+	 *            the game screen
 	 */
-	public GameLogic(GameScreen gameScreen){
+	public GameLogic(GameScreen gameScreen) {
 		this.gameScreen = gameScreen;
 
 		// initialize game status information
@@ -51,7 +53,8 @@ public class GameLogic {
 
 	/**
 	 * Returns the game status
-	 * @return the game status 
+	 * 
+	 * @return the game status
 	 */
 	public GameStatus getStatus() {
 		return status;
@@ -68,11 +71,11 @@ public class GameLogic {
 	/**
 	 * Prepare for a new game.
 	 */
-	public void newGame(){
+	public void newGame() {
 		status.setGameStarting(true);
 		soundMan.stopIntroMusic();
 		soundMan.playDuringMusic();
-		
+
 		// init game variables
 		bullets = new ArrayList<Bullet>();
 		asteroids = new ArrayList<Asteroid>();
@@ -90,6 +93,7 @@ public class GameLogic {
 		status.setBossLife(5);
 		status.setNewFinalBoss(false);
 		status.setShowFinalBoss(false);
+		status.setFinalBossDestroyed(false);
 
 		// init the ship and the asteroid
 		newShip(gameScreen);
@@ -99,12 +103,12 @@ public class GameLogic {
 
 		// start with 3 asteroids
 		generateAsteroids(1);
-		
+
 		// prepare game screen
 		gameScreen.doNewGame();
 
 		// delay to display "Get Ready" message for 1.5 seconds
-		Timer timer = new Timer(1500, new ActionListener(){
+		Timer timer = new Timer(1500, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				status.setGameStarting(false);
 				status.setGameStarted(true);
@@ -113,29 +117,29 @@ public class GameLogic {
 		timer.setRepeats(false);
 		timer.start();
 	}
+
 	/**
 	 * Check game or level ending conditions.
 	 */
-	public void checkConditions(){
+	public void checkConditions() {
 		// check game over conditions
-		if(!status.isGameOver() && status.isGameStarted()){
-			if(status.getShipsLeft() == 0){
+		if (!status.isGameOver() && status.isGameStarted()) {
+			if (status.getShipsLeft() == 0) {
 				gameOver();
-			} else if(status.getBossLife() == 0){
+			} else if (status.getBossLife() == 0) {
 				gameWin();
 			}
 		}
 		// check level over conditions
-		if(status.isLevelOver()){
+		if (status.isLevelOver()) {
+
 			// update level
-			if(status.getCurrentLevel() == 9){
+			if (status.getCurrentLevel() < 8) {
+				status.updateCurrentLevel();
+				generateAsteroids(1 * (status.getCurrentLevel() - 1));
+			} else if (status.getCurrentLevel() >= 7) {
 				status.setShowFinalBoss(true);
 				soundMan.stopDuringMusic();
-			}
-			else {
-				status.updateCurrentLevel();
-				generateAsteroids(1*(status.getCurrentLevel()-1));	
-				soundMan.playTensionMusic();
 			}
 		}
 	}
@@ -143,7 +147,7 @@ public class GameLogic {
 	/**
 	 * Actions to take when the game is over.
 	 */
-	public void gameOver(){
+	public void gameOver() {
 		status.setGameStarted(false);
 		status.setGameOver(true);
 		soundMan.stopDuringMusic();
@@ -152,7 +156,7 @@ public class GameLogic {
 		gameScreen.doGameOver();
 
 		// delay to display "Game Over" message for 3 seconds
-		Timer timer = new Timer(3000, new ActionListener(){
+		Timer timer = new Timer(3000, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				status.setGameOver(false);
 				soundMan.playIntroMusic();
@@ -165,7 +169,7 @@ public class GameLogic {
 	/**
 	 * Actions to take when the game is won.
 	 */
-	public void gameWin(){
+	public void gameWin() {
 		status.setGameStarted(false);
 		status.setGameWin(true);
 		soundMan.stopDuringMusic();
@@ -174,7 +178,7 @@ public class GameLogic {
 		gameScreen.doGameWin();
 
 		// delay to display "You Win!" message for 3 seconds
-		Timer timer = new Timer(9000, new ActionListener(){
+		Timer timer = new Timer(9000, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				status.setGameWin(false);
 				soundMan.playIntroMusic();
@@ -184,11 +188,11 @@ public class GameLogic {
 		timer.start();
 		gameScreen.doNewGame();
 	}
-	
+
 	/**
 	 * Fire a bullet from ship.
 	 */
-	public void fireBullet(){
+	public void fireBullet() {
 		Bullet bullet = new Bullet(ship);
 		bullets.add(bullet);
 		soundMan.playBulletSound();
@@ -196,15 +200,16 @@ public class GameLogic {
 
 	/**
 	 * Move a bullet once fired.
-	 * @param bullet the bullet to move
+	 * 
+	 * @param bullet
+	 *            the bullet to move
 	 * @return if the bullet should be removed from screen
 	 */
-	public boolean moveBullet(Bullet bullet){
-		if(bullet.getY() - bullet.getSpeed() >= 0){
+	public boolean moveBullet(Bullet bullet) {
+		if (bullet.getY() - bullet.getSpeed() >= 0) {
 			bullet.translate(0, -bullet.getSpeed());
 			return false;
-		}
-		else{
+		} else {
 			return true;
 		}
 	}
@@ -212,24 +217,25 @@ public class GameLogic {
 	/**
 	 * Fire a finalBoss bullet from final Boss.
 	 */
-	public void fireFinalBossBullet(){
+	public void fireFinalBossBullet() {
 		Bullet bossBullets = new Bullet(finalBoss);
 		bossBullet.add(bossBullets);
 		soundMan.playBossBulletSound();
 	}
-	public boolean moveBossBullet(Bullet bossBullet){
-		if(bossBullet.getY() - bossBullet.getSpeed() >= 0){
+
+	public boolean moveBossBullet(Bullet bossBullet) {
+		if (bossBullet.getY() - bossBullet.getSpeed() >= 0) {
 			bossBullet.translate(0, bossBullet.getSpeed() - 10);
 			return false;
-		}
-		else{
+		} else {
 			return true;
-		}}
+		}
+	}
 
 	/**
 	 * Create a new ship (and replace current one).
 	 */
-	public Ship newShip(GameScreen screen){
+	public Ship newShip(GameScreen screen) {
 		this.ship = new Ship(screen);
 		return ship;
 	}
@@ -237,7 +243,7 @@ public class GameLogic {
 	/**
 	 * Create a new asteroid.
 	 */
-	public Asteroid newAsteroid(GameScreen screen){
+	public Asteroid newAsteroid(GameScreen screen) {
 		this.asteroid = new Asteroid(screen);
 		return asteroid;
 	}
@@ -245,13 +251,14 @@ public class GameLogic {
 	/**
 	 * Create a new enemy ship.
 	 */
-	public EnemyShip newEnemyShip(GameScreen screen){
+	public EnemyShip newEnemyShip(GameScreen screen) {
 		this.enemyShip = new EnemyShip(screen);
 		return enemyShip;
 	}
 
 	/**
 	 * Returns the ship.
+	 * 
 	 * @return the ship
 	 */
 	public Ship getShip() {
@@ -260,6 +267,7 @@ public class GameLogic {
 
 	/**
 	 * Returns the asteroid.
+	 * 
 	 * @return the asteroid
 	 */
 	public Asteroid getAsteroid() {
@@ -268,46 +276,51 @@ public class GameLogic {
 
 	/**
 	 * Returns the enemy ship.
+	 * 
 	 * @return the enemy ship
 	 */
-	public EnemyShip getEnemyShip () {
+	public EnemyShip getEnemyShip() {
 		return enemyShip;
 	}
 
 	/**
 	 * Create a new finalBoss.
 	 */
-	public FinalBoss newFinalBoss(GameScreen screen){
+	public FinalBoss newFinalBoss(GameScreen screen) {
 		this.finalBoss = new FinalBoss(screen);
-		//		soundMan.playTensionMusic();
-		//		soundMan.stopDuringMusic();
 		return finalBoss;
 	}
-	
+
 	/**
 	 * Returns the finalBoss.
+	 * 
 	 * @return the finalBoss
 	 */
 	public FinalBoss getFinalBoss() {
 		return finalBoss;
 	}
+
 	/**
 	 * Returns the list of bullets.
+	 * 
 	 * @return the list of bullets
 	 */
 	public List<Bullet> getBullets() {
 		return bullets;
 	}
+
 	/**
 	 * Returns the list of boss bullets.
+	 * 
 	 * @return the list of boss bullets
 	 */
 	public List<Bullet> getBossBullet() {
 		return bossBullet;
 	}
-	
+
 	/**
 	 * Returns the list of asteroids
+	 * 
 	 * @return the list of asteroids
 	 */
 	public List<Asteroid> getAsteroids() {
@@ -316,19 +329,22 @@ public class GameLogic {
 
 	/**
 	 * Generates the asteroids and puts them in the list
-	 * @param number of asteroids to generate
+	 * 
+	 * @param number
+	 *            of asteroids to generate
 	 */
-	public void generateAsteroids(int n){
-		for(int i=0; i<n; i++){
+	public void generateAsteroids(int n) {
+		for (int i = 0; i < n; i++) {
 			addAsteroid(gameScreen);
 		}
 	}
 
 	/**
 	 * Adds an asteroid to the screen and to the list
+	 * 
 	 * @param screen
 	 */
-	public void addAsteroid(GameScreen screen){
+	public void addAsteroid(GameScreen screen) {
 		this.asteroid = newAsteroid(screen);
 		this.asteroid.generateDirection();
 		asteroids.add(asteroid);

@@ -12,7 +12,7 @@ public class GameStatus {
 
 	// status variables
 	private boolean newShip;
-	private boolean newAsteroid;	
+	private boolean newAsteroid;
 	private boolean newEnemyShip;
 	private boolean newFinalBoss;
 	private boolean showFinalBoss;
@@ -25,27 +25,30 @@ public class GameStatus {
 	private long enemyShipsDestroyed = 0;
 	private boolean finalBossDestroyed = false;
 	private int currentLevel = 1;
-	
+
 	// target variables
 	private long asteroidToDestroyValue = 5;
-	
-	public GameStatus(){
+
+	public GameStatus() {
 
 	}
 
 	/**
 	 * Indicates if the final boss is destroyed.
+	 * 
 	 * @return if the final boss is destroyed or not
 	 */
 	public synchronized boolean isFinalBossDestroyed() {
 		return finalBossDestroyed;
 	}
+
 	public synchronized void setFinalBossDestroyed(boolean finalBossDestroyed) {
 		this.finalBossDestroyed = finalBossDestroyed;
 	}
 
 	/**
 	 * Indicates if the game has already started or not.
+	 * 
 	 * @return if the game has already started or not
 	 */
 	public synchronized boolean isGameStarted() {
@@ -57,7 +60,9 @@ public class GameStatus {
 	}
 
 	/**
-	 * Indicates if the game is starting ("Get Ready" message is displaying) or not.
+	 * Indicates if the game is starting ("Get Ready" message is displaying) or
+	 * not.
+	 * 
 	 * @return if the game is starting or not.
 	 */
 	public synchronized boolean isGameStarting() {
@@ -69,7 +74,9 @@ public class GameStatus {
 	}
 
 	/**
-	 * Indicates if the game has ended and the "Game Over" message is displaying.
+	 * Indicates if the game has ended and the "Game Over" message is
+	 * displaying.
+	 * 
 	 * @return if the game has ended and the "Game Over" message is displaying.
 	 */
 	public synchronized boolean isGameOver() {
@@ -82,6 +89,7 @@ public class GameStatus {
 
 	/**
 	 * Indicates if the game has ended and the "You Win" message is displaying.
+	 * 
 	 * @return if the game has ended and the "You Win" message is displaying.
 	 */
 	public synchronized boolean isGameWin() {
@@ -91,10 +99,10 @@ public class GameStatus {
 	public synchronized void setGameWin(boolean gameWin) {
 		this.gameWin = gameWin;
 	}
-	
-	
+
 	/**
 	 * Returns the number of boss life.
+	 * 
 	 * @return the number of boss life
 	 */
 	public synchronized int getBossLife() {
@@ -104,9 +112,10 @@ public class GameStatus {
 	public synchronized void setBossLife(int bossLife) {
 		this.bossLife = bossLife;
 	}
-	
+
 	/**
 	 * Indicates if a new ship should be created/drawn.
+	 * 
 	 * @return if a new ship should be created/drawn
 	 */
 	public synchronized boolean isNewShip() {
@@ -119,6 +128,7 @@ public class GameStatus {
 
 	/**
 	 * Indicates if a new asteroid should be created/drawn.
+	 * 
 	 * @return if a new asteroid should be created/drawn
 	 */
 	public synchronized boolean isNewAsteroid() {
@@ -128,9 +138,10 @@ public class GameStatus {
 	public synchronized void setNewAsteroid(boolean newAsteroid) {
 		this.newAsteroid = newAsteroid;
 	}
-	
+
 	/**
-	 * Returns the number of asteroid destroyed. 
+	 * Returns the number of asteroid destroyed.
+	 * 
 	 * @return the number of asteroid destroyed
 	 */
 	public synchronized long getAsteroidsDestroyed() {
@@ -143,6 +154,7 @@ public class GameStatus {
 
 	/**
 	 * Indicates if a new enemy ship should be created/drawn.
+	 * 
 	 * @return if a new enemy ship should be created/drawn
 	 */
 	public synchronized boolean isNewEnemyShip() {
@@ -154,7 +166,8 @@ public class GameStatus {
 	}
 
 	/**
-	 * Returns the number of enemy ship destroyed. 
+	 * Returns the number of enemy ship destroyed.
+	 * 
 	 * @return the number of enemy ship destroyed
 	 */
 	public synchronized long getEnemyShipsDestroyed() {
@@ -167,6 +180,7 @@ public class GameStatus {
 
 	/**
 	 * Returns the number ships/lives left.
+	 * 
 	 * @return the number ships left
 	 */
 	public synchronized int getShipsLeft() {
@@ -179,39 +193,55 @@ public class GameStatus {
 
 	/**
 	 * Indicates if the level is over
+	 * 
 	 * @return if the level is over
 	 */
-	public synchronized boolean isLevelOver(){
+	public synchronized boolean isLevelOver() {
 		// check conditions
-		if((this.getAsteroidsDestroyed() > 1) && (this.getAsteroidsDestroyed() == this.getAsteroidsValue())){
+		if ((this.getAsteroidsDestroyed() > 1) && (this.getAsteroidsDestroyed() == this.getAsteroidsValue())) {
 			levelOver = true;
 		}
 		return levelOver;
 	}
-	
-	public synchronized void setLevelOver(boolean levelOver){
+
+	public synchronized void setLevelOver(boolean levelOver) {
 		this.levelOver = levelOver;
 	}
-	
+
 	public synchronized int getCurrentLevel() {
 		return currentLevel;
 	}
-	
-	public synchronized void setCurrentLevel(int level){
+
+	public synchronized void setCurrentLevel(int level) {
 		this.currentLevel = level;
 	}
-	
+
 	/**
 	 * Increases the level and sets new goals
 	 */
 	public synchronized void updateCurrentLevel() {
 		setCurrentLevel(this.getCurrentLevel() + 1);
-		setShipsLeft(this.getShipsLeft()+1);
+		setShipsLeft(this.getShipsLeft() + 1);
+		setAsteroidValue(this.getAsteroidsValue() + 3 * getCurrentLevel()); // <<<****************************
 		this.setLevelOver(false);
 	}
 
+	// ------------------------------------------------------------------------------------------
+
+	// /**
+	// * Increases the level and sets new goals
+	// */
+	// public synchronized void updateCurrentLevel() {
+	// setCurrentLevel(this.getCurrentLevel() + 1);
+	// setAsteroidValue(this.getAsteroidsValue()+3*getCurrentLevel());
+	// this.setLevelOver(false);
+	// }
+
+	// ------------------------------------------------------------------------------------------
+
 	/**
 	 * Returns the score points obtained.
+	 * 
 	 * @return the score points
 	 */
 	public synchronized int getScorePoints() {
@@ -220,6 +250,7 @@ public class GameStatus {
 
 	/**
 	 * Set score points
+	 * 
 	 * @param scorePoints
 	 */
 	public synchronized void setScorePoints(int scorePoints) {
@@ -233,7 +264,7 @@ public class GameStatus {
 	public long getAsteroidsValue() {
 		return asteroidToDestroyValue;
 	}
-		
+
 	public synchronized boolean isNewFinalBoss() {
 		return newFinalBoss;
 	}
@@ -241,7 +272,7 @@ public class GameStatus {
 	public synchronized void setNewFinalBoss(boolean newFinalBoss) {
 		this.newFinalBoss = newFinalBoss;
 	}
-	
+
 	public synchronized boolean showFinalBoss() {
 		return showFinalBoss;
 	}
@@ -249,11 +280,12 @@ public class GameStatus {
 	public synchronized void setShowFinalBoss(boolean showFinalBoss) {
 		this.showFinalBoss = showFinalBoss;
 	}
-	
+
 	public void setGoRight(boolean position) {
 		this.position = position;
 	}
+
 	public boolean goRight() {
-		return position;	
-	}	
+		return position;
+	}
 }
