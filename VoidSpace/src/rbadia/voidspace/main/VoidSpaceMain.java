@@ -1,10 +1,21 @@
 /**
  * By:
+ * 
  * Albert Morales
  * Roberto Madera
  * 
  * ICOM 4015 030
  * Project 2
+ * 
+ */
+
+ /** 
+ * Music credits:
+ * 
+ * Login music 	- https://www.youtube.com/watch?v=t32HdcQk78Y
+ * Game music 	- https://www.youtube.com/watch?v=hylhcwEU22U
+ * Boss music 	- https://www.youtube.com/watch?v=Mso4q1hLx10
+ * 
  */
 
 package rbadia.voidspace.main;
