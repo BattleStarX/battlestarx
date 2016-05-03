@@ -200,8 +200,8 @@ public class GameLogic {
 	/**
 	 * Move a bullet once fired.
 	 * 
-	 * @param bullet
-	 *            the bullet to move
+	 * @param bullet the bullet to move
+	 * 
 	 * @return if the bullet should be removed from screen
 	 */
 	public boolean moveBullet(Bullet bullet) {
